@@ -45,19 +45,71 @@
 
 // AppRegistry.registerComponent("DocSwap", () => DocSwap);
 
+// <View style={[styles.myView, styles.first]}>
+// <Text style={styles.myText}> {this.state.name} </Text>
+// </View>
+// <TouchableHighlight
+// style={styles.myView}
+// onPress={this.onPress}
+// underlayColor="green"
+// >
+// <View>
+//   <Text style={styles.myText}> {this.state.name} </Text>
+// </View>
+// </TouchableHighlight>
+// <TouchableOpacity>
+// <View style={styles.myView}>
+//   <Text style={styles.myText}> {this.state.name} </Text>
+// </View>
+// </TouchableOpacity>
+
 import React, { Component } from "react";
-import { AppRegistry, Text, View } from "react-native";
+import {
+  AppRegistry,
+  Text,
+  View,
+  StyleSheet,
+  TouchableHighlight,
+  TouchableOpacity
+} from "react-native";
 
-import App from "./app/Components/App/App";
+import Welcome from "../Welcome/Welcome";
+import MediaType from "../MediaType/MediaType";
+import DocUp from "../DocUp/DocUp";
+import Camera from "../Camera/Camera";
 
-export default class DocSwap extends Component {
+export default class Component1 extends Component {
+  constructor() {
+    super();
+    this.state = {
+      name: "Hello World"
+    };
+  }
+
   render() {
+    console.log("say hello");
     return (
-      <View>
-        <App />
+      <View style={styles.container}>
+        <Welcome />
       </View>
     );
   }
 }
 
-AppRegistry.registerComponent("DocSwap", () => DocSwap);
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "column"
+  },
+
+  myText: {
+    fontSize: 30
+  },
+
+  myView: {
+    backgroundColor: "steelblue",
+    flex: 1,
+    margin: 20
+  }
+});
+
+AppRegistry.registerComponent("Component1", () => Component1);

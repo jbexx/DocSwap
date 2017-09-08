@@ -46,18 +46,53 @@
 // AppRegistry.registerComponent("DocSwap", () => DocSwap);
 
 import React, { Component } from "react";
-import { AppRegistry, Text, View } from "react-native";
+import { AppRegistry, Text, View, TextInput, StyleSheet } from "react-native";
 
-import App from "./app/Components/App/App";
+export default class OtherComp extends Component {
+  constructor() {
+    super();
+    this.state = {
+      textValue: ""
+    };
+  }
 
-export default class DocSwap extends Component {
+  onChangeText(value) {
+    console.log("what");
+    //   this.setState({
+    //     textValue: value
+    //   });
+  }
+
+  onSubmit(value) {
+    this.setState({
+      textValue: value
+    });
+  }
+
   render() {
+    console.log("say hello");
     return (
       <View>
-        <App />
+        <TextInput
+          placeholder="Enter Text"
+          value={this.state.textValue.textValue}
+          onChangeText={value => this.onChangeText(value)}
+          onSubmitEditing={value => this.onSubmit(value)}
+          style={styles.input}
+        />
+        <Text>{this.state.textValue} </Text>
       </View>
     );
   }
 }
 
-AppRegistry.registerComponent("DocSwap", () => DocSwap);
+const styles = StyleSheet.create({
+  input: {
+    padding: 5,
+    fontSize: 25,
+    height: 35,
+    marginTop: 40
+  }
+});
+
+AppRegistry.registerComponent("OtherComp", () => OtherComp);
