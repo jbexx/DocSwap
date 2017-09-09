@@ -1,116 +1,62 @@
-// /**
-//  * Sample React Native App
-//  * https://github.com/facebook/react-native
-//  * @flow
-//  */
+import React, { Component } from "react";
+import {
+  AppRegistry,
+  View,
+  Text,
+  Image,
+  ImageBackground,
+  TouchableOpacity,
+  StyleSheet
+} from "react-native";
 
-// import React, { Component } from "react";
-// import { AppRegistry, StyleSheet, Text, View } from "react-native";
+export default class MediaType extends Component {
+  handlePress() {
+    console.log("here");
+  }
 
-// export default class DocSwap extends Component {
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//         <Text style={styles.welcome}>Welcome to DockSwap!</Text>
-//         <Text style={styles.instructions}>
-//           To get started, edit index.ios.js
-//         </Text>
-//         <Text style={styles.instructions}>
-//           Press Cmd+R to reload,{"\n"}
-//           Cmd+D or shake for dev menu
-//         </Text>
-//       </View>
-//     );
-//   }
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//     backgroundColor: "#F5FCFF"
-//   },
-//   welcome: {
-//     fontSize: 20,
-//     textAlign: "center",
-//     margin: 10
-//   },
-//   instructions: {
-//     textAlign: "center",
-//     color: "#333333",
-//     marginBottom: 5
-//   }
-// });
-
-// AppRegistry.registerComponent("DocSwap", () => DocSwap);
-
-// import React, { Component } from "react";
-// import { AppRegistry, Text, View, ListView, StyleSheet } from "react-native";
-
-// const users = [
-//   { name: "Jack M" },
-//   { name: "Dan The Man" },
-//   { name: "Christie the southern Lynam dancer" },
-//   { name: "Tyler stop yelling please" }
-// ];
-
-// export default class Users extends Component {
-//   constructor() {
-//     super();
-//     const ds = new ListView.DataSource({
-//       rowHasChanged: (r1, r2) => r1 !== r2
-//     });
-//     this.state = {
-//       userDataSource: ds.cloneWithRows(users)
-//     };
-//   }
-
-//   renderRow(user, sectionId, rowId, highlightRow) {
-//     return (
-//       <View style={styles.row}>
-//         <Text style={styles.rowText}>{user.name}</Text>
-//       </View>
-//     );
-//   }
-
-//   render() {
-//     return (
-//       <ListView
-//         dataSource={this.state.userDataSource}
-//         renderRow={this.renderRow.bind(this)}
-//       />
-//     );
-//   }
-// }
-
-// const styles = StyleSheet.create({
-//   row: {
-//     flexDirection: "row",
-//     justifyContent: "center",
-//     padding: 10,
-//     backgroundColor: "#f4f4f4",
-//     marginBottom: 3,
-//     height: 35
-//   },
-
-//   rowText: {
-//     flex: 1
-//   }
-// });
-
-// AppRegistry.registerComponent("Users", () => Users);
-
-import React from 'react';
-import { AppRegistry, View, Text, Image, StyleSheet } from 'react-native';
-
-const MediaType = () => {
-  return (
-    <View>
-      <Image source={} />
-    </View>
-  )
+  render() {
+    return (
+      <ImageBackground
+        source={require("../../../assets/blue-background.png")}
+        style={styles.background}
+      >
+        <TouchableOpacity onPress={this.handlePress}>
+          <Image
+            source={require("../../../assets/photo-camera.png")}
+            style={[styles.cam, styles.img]}
+          />
+          <Text style={[styles.camText, styles.text]}>Take Picture</Text>
+        </TouchableOpacity>
+        <Image source={require("../../../assets/bar.png")} style={styles.bar} />
+        <TouchableOpacity>
+          <Image
+            source={require("../../../assets/upload.png")}
+            style={[styles.doc, styles.img]}
+          />
+          <Text style={[styles.docText, styles.text]}>Upload Image</Text>
+        </TouchableOpacity>
+      </ImageBackground>
+    );
+  }
 }
 
+const styles = StyleSheet.create({
+  background: {
+    justifyContent: "space-around",
+    alignItems: "center",
+    height: 667,
+    width: 375
+  },
+
+  bar: {
+    width: "80%"
+  },
+
+  text: {
+    backgroundColor: "rgba(0,0,0,0)",
+    color: "white",
+    fontSize: 35
+  }
+});
+
 AppRegistry.registerComponent("MediaType", () => MediaType);
-export default MediaType;
