@@ -1,5 +1,5 @@
 import React from "react";
-import { AppRegistry, Text, View, StyleSheet, Image } from "react-native";
+import { AppRegistry, StyleSheet, Image } from "react-native";
 
 const Welcome = () => {
   return (

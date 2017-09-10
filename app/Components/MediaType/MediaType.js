@@ -10,17 +10,24 @@ import {
 } from "react-native";
 
 export default class MediaType extends Component {
+  static navigationOptions = {
+    title: "MediaType",
+    header: null
+  };
+
   handlePress() {
-    console.log("here");
+    this.props.navigation.navigate("Camera");
   }
 
   render() {
+    const { navigate } = this.props.navigation;
+
     return (
       <ImageBackground
         source={require("../../../assets/blue-background.png")}
         style={styles.background}
       >
-        <TouchableOpacity onPress={this.handlePress}>
+        <TouchableOpacity onPress={() => navigate("Camera")}>
           <Image
             source={require("../../../assets/photo-camera.png")}
             style={[styles.cam, styles.img]}
