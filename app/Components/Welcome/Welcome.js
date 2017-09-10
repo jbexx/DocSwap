@@ -1,5 +1,5 @@
 import React from "react";
-import { AppRegistry, StyleSheet, Image } from "react-native";
+import { AppRegistry, StyleSheet, Image, Dimensions } from "react-native";
 
 const Welcome = () => {
   return (
@@ -12,8 +12,8 @@ const Welcome = () => {
 
 const styles = StyleSheet.create({
   background: {
-    height: 667,
-    width: 375
+    height: Dimensions.get("window").height,
+    width: Dimensions.get("window").width
   }
 });
 

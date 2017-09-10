@@ -6,6 +6,7 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
+  Dimensions,
   StyleSheet
 } from "react-native";
 
@@ -15,10 +16,6 @@ export default class MediaType extends Component {
     header: null
   };
 
-  handlePress() {
-    this.props.navigation.navigate("Camera");
-  }
-
   render() {
     const { navigate } = this.props.navigation;
 
@@ -27,7 +24,7 @@ export default class MediaType extends Component {
         source={require("../../../assets/blue-background.png")}
         style={styles.background}
       >
-        <TouchableOpacity onPress={() => navigate("Camera")}>
+        <TouchableOpacity onPress={() => navigate("TakePhoto")}>
           <Image
             source={require("../../../assets/photo-camera.png")}
             style={[styles.cam, styles.img]}
@@ -51,11 +48,12 @@ const styles = StyleSheet.create({
   background: {
     justifyContent: "space-around",
     alignItems: "center",
-    height: 667,
-    width: 375
+    height: Dimensions.get("window").height,
+    width: Dimensions.get("window").width
   },
 
   bar: {
+    height: 1,
     width: "80%"
   },
 

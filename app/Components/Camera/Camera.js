@@ -1,14 +1,72 @@
 import React, { Component } from "react";
-import { AppRegistry, Text } from "react-native";
+import {
+  AppRegistry,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions
+} from "react-native";
+import Camera from "react-native-camera";
 
-export default class Camera extends Component {
+export default class TakePhoto extends Component {
   static navigationOptions = {
     title: "Camera",
     header: null
   };
+
+  handlePhoto(photo) {
+    console.log("handle photo ", photo);
+    //verify photo page
+    this.props.navigation.navigate("Verify", photo);
+    //pass in photo as prop to display on page
+  }
+
+  takePicture() {
+    // console.log("cam btn");
+    const options = {};
+    this.camera
+      .capture({ metadata: options })
+      .then(data => this.handlePhoto(data))
+      .catch(err => console.error(err));
+  }
+
   render() {
-    return <Text>Camera</Text>;
+    return (
+      <View>
+        <Camera
+          ref={cam => {
+            this.camera = cam;
+          }}
+          style={styles.cam}
+          aspect={Camera.constants.Aspect.fill}
+        >
+          <TouchableOpacity
+            style={styles.highlight}
+            onPress={this.takePicture.bind(this)}
+          >
+            <View style={styles.camBtn} />
+          </TouchableOpacity>
+        </Camera>
+      </View>
+    );
   }
 }
 
-AppRegistry.registerComponent("Camera", () => Camera);
+const styles = StyleSheet.create({
+  cam: {
+    justifyContent: "flex-end",
+    alignItems: "center",
+    height: Dimensions.get("window").height,
+    width: Dimensions.get("window").width
+  },
+
+  camBtn: {
+    height: 50,
+    width: 50,
+    borderRadius: 25,
+    borderWidth: 1,
+    borderColor: "#d6d7da"
+  }
+});
+
+AppRegistry.registerComponent("TakePhoto", () => TakePhoto);
