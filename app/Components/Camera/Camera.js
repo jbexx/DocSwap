@@ -15,14 +15,13 @@ export default class TakePhoto extends Component {
   };
 
   handlePhoto(photo) {
-    console.log("handle photo ", photo);
+    console.log("phoooootoo ", photo);
     //verify photo page
     this.props.navigation.navigate("Verify", photo);
     //pass in photo as prop to display on page
   }
 
   takePicture() {
-    // console.log("cam btn");
     const options = {};
     this.camera
       .capture({ metadata: options })
@@ -39,6 +38,7 @@ export default class TakePhoto extends Component {
           }}
           style={styles.cam}
           aspect={Camera.constants.Aspect.fill}
+          captureTarget={Camera.constants.CaptureTarget.disk}
         >
           <TouchableOpacity
             style={styles.highlight}

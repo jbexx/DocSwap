@@ -1,6 +1,19 @@
 import React, { Component } from "react";
-import { AppRegistry, View, Text, StyleSheet, Dimensions } from "react-native";
+import { AppRegistry, View, Image, StyleSheet, Dimensions } from "react-native";
+import { NavigationActions } from "react-navigation";
+
 import Camera from "react-native-camera";
+
+// const navigateAction = NavigationActions.navigate({
+
+//   routeName: 'Verify',
+
+//   params: {},
+
+//   action: NavigationActions.navigate({ routeName: 'SubProfileRoute'})
+// })
+
+// this.props.navigation.dispatch(navigateAction)
 
 export default class TakePhoto extends Component {
   static navigationOptions = {
@@ -9,9 +22,10 @@ export default class TakePhoto extends Component {
   };
 
   render() {
+    console.log("props in verify ", this.props.navigation);
     return (
       <View>
-        <Text>You made it</Text>
+        <Image source={require(this.props.navigation.state.params.path)} />
       </View>
     );
   }
