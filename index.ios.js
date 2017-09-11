@@ -4,8 +4,9 @@ import { StackNavigator } from "react-navigation";
 
 import App from "./app/Components/App/App";
 import MediaType from "./app/Components/MediaType/MediaType";
-import Camera from "./app/Components/Camera/Camera";
+import TakePhoto from "./app/Components/Camera/Camera";
 import DocUp from "./app/Components/DocUp/DocUp";
+import Verify from "./app/Components/Verify/Verify";
 
 export default class DocSwap extends Component {
   render() {
@@ -21,8 +22,9 @@ export default class DocSwap extends Component {
 const DocApp = StackNavigator({
   Home: { screen: App },
   MediaType: { screen: MediaType },
-  Camera: { screen: Camera },
-  Upload: { screen: DocUp }
+  TakePhoto: { screen: TakePhoto },
+  Upload: { screen: DocUp },
+  Verify: { screen: Verify }
 });
 
 AppRegistry.registerComponent("DocSwap", () => DocApp);

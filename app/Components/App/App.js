@@ -15,11 +15,10 @@ export default class App extends Component {
   componentDidMount() {
     setTimeout(() => {
       this.props.navigation.navigate("MediaType");
-    }, 2000);
+    }, 500);
   }
 
   render() {
-    console.log("propppps", this.props);
     return <Welcome />;
   }
 }
