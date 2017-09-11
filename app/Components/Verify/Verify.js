@@ -1,19 +1,16 @@
 import React, { Component } from "react";
-import { AppRegistry, View, Image, StyleSheet, Dimensions } from "react-native";
+import {
+  AppRegistry,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions
+} from "react-native";
 import { NavigationActions } from "react-navigation";
 
 import Camera from "react-native-camera";
-
-// const navigateAction = NavigationActions.navigate({
-
-//   routeName: 'Verify',
-
-//   params: {},
-
-//   action: NavigationActions.navigate({ routeName: 'SubProfileRoute'})
-// })
-
-// this.props.navigation.dispatch(navigateAction)
 
 export default class TakePhoto extends Component {
   static navigationOptions = {
@@ -25,12 +22,25 @@ export default class TakePhoto extends Component {
     console.log("props in verify ", this.props.navigation);
     return (
       <View>
-        <Image source={require(this.props.navigation.state.params.path)} />
+        <Image
+          source={{ uri: this.props.navigation.state.params.path }}
+          style={{ resizeMode: Image.resizeMode.contain }}
+        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.props.navigation.navigate("MediaType")}
+        />
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  button: {
+    height: 50,
+    width: 50,
+    backgroundColor: "pink"
+  }
+});
 
 AppRegistry.registerComponent("TakePhoto", () => TakePhoto);

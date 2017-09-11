@@ -14,18 +14,11 @@ export default class TakePhoto extends Component {
     header: null
   };
 
-  handlePhoto(photo) {
-    console.log("phoooootoo ", photo);
-    //verify photo page
-    this.props.navigation.navigate("Verify", photo);
-    //pass in photo as prop to display on page
-  }
-
   takePicture() {
     const options = {};
     this.camera
       .capture({ metadata: options })
-      .then(data => this.handlePhoto(data))
+      .then(data => this.props.navigation.navigate("Verify", data))
       .catch(err => console.error(err));
   }
 

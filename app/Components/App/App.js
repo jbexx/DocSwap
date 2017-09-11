@@ -19,7 +19,6 @@ export default class App extends Component {
   }
 
   render() {
-    console.log("propppps", this.props);
     return <Welcome />;
   }
 }
