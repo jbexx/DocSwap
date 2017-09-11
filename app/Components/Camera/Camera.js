@@ -7,18 +7,30 @@ import {
   Dimensions
 } from "react-native";
 import Camera from "react-native-camera";
+const RNFS = require("react-native-fs");
 
 export default class TakePhoto extends Component {
+  constructor() {
+    super();
+    this.state = {
+      photo: null
+    };
+  }
   static navigationOptions = {
     title: "Camera",
     header: null
   };
 
   takePicture() {
+    //if I want to grab metadata later
     const options = {};
+    //options.location = ...
     this.camera
       .capture({ metadata: options })
-      .then(data => this.props.navigation.navigate("Verify", data))
+      .then(data => {
+        console.log("daaata", data);
+        this.props.navigation.navigate("Verify", data.path);
+      })
       .catch(err => console.error(err));
   }
 
@@ -33,10 +45,7 @@ export default class TakePhoto extends Component {
           aspect={Camera.constants.Aspect.fill}
           captureTarget={Camera.constants.CaptureTarget.disk}
         >
-          <TouchableOpacity
-            style={styles.highlight}
-            onPress={this.takePicture.bind(this)}
-          >
+          <TouchableOpacity onPress={this.takePicture.bind(this)}>
             <View style={styles.camBtn} />
           </TouchableOpacity>
         </Camera>
