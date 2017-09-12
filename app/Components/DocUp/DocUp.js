@@ -38,17 +38,32 @@ export default class DocUp extends Component {
   }
 
   render() {
-    if (this.state.photoArray) {
-      const mappedPhotos = this.state.photoArray.map((photo, i) => {
-        console.log("in map", photo.node);
-        return (
-          <PhotoList key={photo.node.timestamp} image={photo.node.image.uri} />
-        );
-      });
+    return (
+      <FlatList
+        data={this.state.photoArray}
+        renderItem={({ item }) => (
+          <TouchableOpacity>
+            <Image source={{ uri: item.node.image.uri }} />
+          </TouchableOpacity>
+        )}
+        keyExtractor={item => item.node.timestamp}
+      />
+    );
 
-      return <FlatList>{mappedPhotos}</FlatList>;
-    }
-    return <Text> no photos </Text>;
+    // if (this.state.photoArray) {
+    //   const mappedPhotos = this.state.photoArray.map((photo, i) => {
+    //     console.log("in map", photo.node);
+    //     return (
+    //       <PhotoList
+    //         key={photo.node.timestamp}
+    //         photoArray={this.state.photoArray}
+    //       />
+    //     );
+    //   });
+
+    //   return <FlatList>{mappedPhotos}</FlatList>;
+    // }
+    // return <Text> no photos </Text>;
   }
 }
 
