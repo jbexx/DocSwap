@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import {
   AppRegistry,
-  View,
-  Text,
   Image,
   ImageBackground,
   TouchableOpacity,
@@ -27,11 +25,13 @@ export default class MediaType extends Component {
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigate("TakePhoto")}
+          activeOpacity={0.5}
         >
           <Image
             source={require("../../../assets/photo-camera.png")}
             style={[styles.cam, styles.img]}
           />
+          
           <Image
             style={styles.picText}
             source={require("../../../assets/picture-text.png")}
@@ -40,7 +40,11 @@ export default class MediaType extends Component {
 
         <Image source={require("../../../assets/bar.png")} style={styles.bar} />
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigate("Upload")}
+          activeOpacity={0.5}
+        >
           <Image
             source={require("../../../assets/upload.png")}
             style={[styles.doc, styles.img]}

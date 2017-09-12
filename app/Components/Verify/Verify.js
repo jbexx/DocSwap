@@ -3,7 +3,7 @@ import {
   AppRegistry,
   View,
   Text,
-  Image,
+  ImageBackground,
   TouchableOpacity,
   StyleSheet,
   Dimensions
@@ -19,22 +19,21 @@ export default class TakePhoto extends Component {
   };
 
   render() {
-    console.log("props in verify ", this.props.navigation);
+    const { state, navigate } = this.props.navigation;
+
     return (
       <View>
-        <Image
+        <ImageBackground
           style={styles.img}
           source={{
-            uri: this.props.navigation.state.params
+            uri: state.params
           }}
         >
           <View style={styles.topBar} />
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate("MediaType")}
-          >
+          <TouchableOpacity onPress={() => navigate("MediaType")}>
             <View style={styles.camBtn} />
           </TouchableOpacity>
-        </Image>
+        </ImageBackground>
         <TouchableOpacity style={styles.button} />
       </View>
     );

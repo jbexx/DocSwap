@@ -7,6 +7,7 @@ import MediaType from "./app/Components/MediaType/MediaType";
 import TakePhoto from "./app/Components/Camera/Camera";
 import DocUp from "./app/Components/DocUp/DocUp";
 import Verify from "./app/Components/Verify/Verify";
+import PhotoList from "./app/Components/PhotoList/PhotoList";
 
 export default class DocSwap extends Component {
   render() {
@@ -24,7 +25,8 @@ const DocApp = StackNavigator({
   MediaType: { screen: MediaType },
   TakePhoto: { screen: TakePhoto },
   Upload: { screen: DocUp },
-  Verify: { screen: Verify }
+  Verify: { screen: Verify },
+  PhotoList: { screen: PhotoList }
 });
 
 AppRegistry.registerComponent("DocSwap", () => DocApp);
