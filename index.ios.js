@@ -25,7 +25,8 @@ const DocApp = StackNavigator({
   MediaType: { screen: MediaType },
   TakePhoto: { screen: TakePhoto },
   Upload: { screen: DocUp },
-  Verify: { screen: Verify }
+  Verify: { screen: Verify },
+  PhotoList: { screen: PhotoList }
 });
 
 AppRegistry.registerComponent("DocSwap", () => DocApp);

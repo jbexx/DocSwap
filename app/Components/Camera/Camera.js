@@ -3,6 +3,7 @@ import {
   AppRegistry,
   View,
   TouchableOpacity,
+  ActivityIndicator,
   StyleSheet,
   Dimensions
 } from "react-native";

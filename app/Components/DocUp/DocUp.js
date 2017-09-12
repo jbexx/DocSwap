@@ -6,6 +6,8 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  ActivityIndicator,
+  Dimensions,
   CameraRoll,
   StyleSheet
 } from "react-native";
@@ -29,7 +31,7 @@ export default class DocUp extends Component {
   }
 
   getPhotos() {
-    CameraRoll.getPhotos({ first: 1000 }).then(res => {
+    CameraRoll.getPhotos({ first: 100 }).then(res => {
       photoArray = res.edges;
       this.setState({
         photoArray
@@ -38,35 +40,42 @@ export default class DocUp extends Component {
   }
 
   render() {
+    console.log(this.state.photoArray)
+    if (!this.state.photoArray) {
+      return <View style={styles.container}>
+                <ActivityIndicator
+                style={styles.wheel}
+                animating={this.state.animating}
+                size="large"
+                color='#448ccb'
+                />
+             </View>
+    }
+
     return (
       <FlatList
-        data={this.state.photoArray}
-        renderItem={({ item }) => (
-          <TouchableOpacity>
-            <Image source={{ uri: item.node.image.uri }} />
-          </TouchableOpacity>
-        )}
-        keyExtractor={item => item.node.timestamp}
+        numColumns={3}
+        data={ this.state.photoArray }
+        renderItem={ ({ item }) => <PhotoList image={ item.node.image.uri } /> }
+        keyExtractor={ item => item.node.timestamp }
       />
     );
-
-    // if (this.state.photoArray) {
-    //   const mappedPhotos = this.state.photoArray.map((photo, i) => {
-    //     console.log("in map", photo.node);
-    //     return (
-    //       <PhotoList
-    //         key={photo.node.timestamp}
-    //         photoArray={this.state.photoArray}
-    //       />
-    //     );
-    //   });
-
-    //   return <FlatList>{mappedPhotos}</FlatList>;
-    // }
-    // return <Text> no photos </Text>;
   }
+  
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width
+  },
+
+  wheel: {
+    height: 80,
+  }
+});
 
 AppRegistry.registerComponent("DocUp", () => DocUp);

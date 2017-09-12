@@ -1,23 +1,33 @@
 import React, { Component } from "react";
-import { AppRegistry, Image, TouchableOpacity, StyleSheet } from "react-native";
-
-import PhotoList from "../PhotoList/PhotoList";
+import { AppRegistry,
+         Image,
+         TouchableOpacity,
+         Dimensions,
+         StyleSheet } from "react-native";
 
 export default class Photos extends Component {
+
   static navigationOptions = {
     title: "Photos"
-  };
+  }
 
   render() {
-    console.log(this.props);
+
     return (
-      <TouchableOpacity>
-        <Image source={require(this.props.image)} />
+      <TouchableOpacity activeOpacity={0.7}>
+        <Image style={ styles.thumbnail } source={{ uri: this.props.image }} />
       </TouchableOpacity>
     );
   }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  thumbnail: {
+    // borderWidth: 0.5,
+    // borderColor: "#fff",
+    height: Dimensions.get('window').height / 5,
+    width: Dimensions.get('window').width / 3
+  }
+});
 
 AppRegistry.registerComponent("Photos", () => Photos);
