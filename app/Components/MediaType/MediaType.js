@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import {
   AppRegistry,
-  View,
-  Text,
   Image,
   ImageBackground,
   TouchableOpacity,
@@ -40,7 +38,10 @@ export default class MediaType extends Component {
 
         <Image source={require("../../../assets/bar.png")} style={styles.bar} />
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigate("Upload")}
+        >
           <Image
             source={require("../../../assets/upload.png")}
             style={[styles.doc, styles.img]}
