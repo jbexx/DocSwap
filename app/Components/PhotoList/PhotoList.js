@@ -8,7 +8,7 @@ import { AppRegistry,
 export default class Photos extends Component {
 
   static navigationOptions = {
-    title: "Photos"
+    title: "Camera Roll",
   }
 
   chosenPicture() {
