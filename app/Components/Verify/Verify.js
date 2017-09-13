@@ -6,6 +6,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   StyleSheet,
+  StatusBar,
   Dimensions
 } from "react-native";
 import { NavigationActions } from "react-navigation";
@@ -18,8 +19,16 @@ export default class TakePhoto extends Component {
     header: null
   };
 
+  componentWillMount() {
+    StatusBar.setHidden(true);
+  }
+
+  usePhoto() {
+    console.log('using photo', this.props.navigation.state)
+  }
+
   render() {
-    const { state, navigate } = this.props.navigation;
+    const { state, navigate, goBack } = this.props.navigation;
 
     return (
       <View>
@@ -30,29 +39,21 @@ export default class TakePhoto extends Component {
           }}
         >
           <View style={styles.topBar} />
-          <TouchableOpacity onPress={() => navigate("MediaType")}>
-            <View style={styles.camBtn} />
-          </TouchableOpacity>
+          <View style={styles.bottomBar}>        
+            <TouchableOpacity style={[styles.goBackBtn, styles.Btn]} onPress={() => goBack()}>
+              <Text style={styles.btnTxt}>Go Back</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.submitBtn, styles.Btn]} onPress={this.usePhoto.bind(this)}>
+              <Text style={styles.btnTxt}>Use Photo</Text>
+            </TouchableOpacity>
+          </View>
         </ImageBackground>
-        <TouchableOpacity style={styles.button} />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  tobBar: {
-    color: "rgba(0,0,0,0.7)",
-    height: 60,
-    width: "100%"
-  },
-
-  button: {
-    height: 50,
-    width: 50,
-    backgroundColor: "pink"
-  },
-
   img: {
     flexDirection: "column",
     justifyContent: "space-between",
@@ -60,13 +61,37 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width
   },
 
-  camBtn: {
-    height: 50,
-    width: 50,
-    borderRadius: 25,
-    borderWidth: 1,
-    borderColor: "#d6d7da"
-  }
+  topBar: {
+    backgroundColor: "rgba(0,0,0,1)",
+    height: 20,
+    width: "100%"
+  },
+
+  bottomBar: {
+    backgroundColor: "rgba(0,0,0,0.7)",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: 80,
+    width: '100%'    
+  },
+  
+  Btn: {
+    flexDirection: 'column',
+    justifyContent: 'center', 
+    height: 80
+  },
+
+  goBackBtn: {
+    marginLeft: 15
+  },
+
+  btnTxt: {
+    color: 'white'
+  },
+
+  submitBtn: {
+    marginRight: 15
+  },
 });
 
 AppRegistry.registerComponent("TakePhoto", () => TakePhoto);

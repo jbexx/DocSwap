@@ -60,7 +60,8 @@ export default class DocUp extends Component {
         data={ this.state.photoArray }
         renderItem={ ({ item }) => <PhotoList 
                                       image={ item.node.image.uri }
-                                      navigate={ this.props.navigation.navigate } /> }
+                                      navigate={ this.props.navigation.navigate }
+                                      goBack={this.props.navigation.goBack} /> }
         keyExtractor={ item => item.node.timestamp }
       />
     );
