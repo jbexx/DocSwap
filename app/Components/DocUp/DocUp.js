@@ -42,21 +42,25 @@ export default class DocUp extends Component {
   render() {
     console.log(this.state.photoArray)
     if (!this.state.photoArray) {
-      return <View style={styles.container}>
+      return (
+              <View style={styles.container}>
                 <ActivityIndicator
                 style={styles.wheel}
                 animating={this.state.animating}
                 size="large"
                 color='#448ccb'
                 />
-             </View>
+              </View>
+      )
     }
 
     return (
       <FlatList
         numColumns={3}
         data={ this.state.photoArray }
-        renderItem={ ({ item }) => <PhotoList image={ item.node.image.uri } /> }
+        renderItem={ ({ item }) => <PhotoList 
+                                      image={ item.node.image.uri }
+                                      navigate={ this.props.navigation.navigate } /> }
         keyExtractor={ item => item.node.timestamp }
       />
     );

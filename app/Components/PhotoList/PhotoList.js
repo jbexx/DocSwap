@@ -11,11 +11,20 @@ export default class Photos extends Component {
     title: "Photos"
   }
 
+  chosenPicture() {
+    this.props.navigate('Verify', this.props.image)
+  }
+
   render() {
 
     return (
-      <TouchableOpacity activeOpacity={0.7}>
-        <Image style={ styles.thumbnail } source={{ uri: this.props.image }} />
+      <TouchableOpacity 
+        activeOpacity={0.7}
+        onPress={this.chosenPicture.bind(this)}>
+        <Image 
+          style={ styles.thumbnail }
+          source={{ uri: this.props.image }}
+           />
       </TouchableOpacity>
     );
   }
