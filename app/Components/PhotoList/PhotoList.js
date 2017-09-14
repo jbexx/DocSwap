@@ -32,8 +32,8 @@ export default class Photos extends Component {
 
 const styles = StyleSheet.create({
   thumbnail: {
-    // borderWidth: 0.5,
-    // borderColor: "#fff",
+    borderWidth: 0.5,
+    borderColor: "#fff",
     height: Dimensions.get('window').height / 5,
     width: Dimensions.get('window').width / 3
   }

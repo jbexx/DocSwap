@@ -15,7 +15,7 @@ export default class App extends Component {
   componentDidMount() {
     setTimeout(() => {
       this.props.navigation.navigate("MediaType");
-    }, 500);
+    }, 2500);
   }
 
   render() {

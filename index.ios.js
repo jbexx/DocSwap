@@ -8,6 +8,7 @@ import TakePhoto from "./app/Components/Camera/Camera";
 import DocUp from "./app/Components/DocUp/DocUp";
 import Verify from "./app/Components/Verify/Verify";
 import PhotoList from "./app/Components/PhotoList/PhotoList";
+import ImageResult from './app/Components/ImageResult/ImageResult';
 
 export default class DocSwap extends Component {
   render() {
@@ -26,7 +27,8 @@ const DocApp = StackNavigator({
   TakePhoto: { screen: TakePhoto },
   Upload: { screen: DocUp },
   Verify: { screen: Verify },
-  PhotoList: { screen: PhotoList }
+  PhotoList: { screen: PhotoList },
+  ImageResult: { screen: ImageResult }
 });
 
 AppRegistry.registerComponent("DocSwap", () => DocApp);
