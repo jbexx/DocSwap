@@ -4,7 +4,7 @@ import {
   View,
   Text,
   ImageBackground,
-  TouchableOpacity,
+  TouchableHighlight,
   StyleSheet,
   StatusBar,
   Dimensions
@@ -12,6 +12,9 @@ import {
 import { NavigationActions } from "react-navigation";
 
 import Camera from "react-native-camera";
+import Key from '../../../assets/key/key';
+
+const RNFS = require('react-native-fs');
 
 export default class TakePhoto extends Component {
   static navigationOptions = {
@@ -23,8 +26,40 @@ export default class TakePhoto extends Component {
     StatusBar.setHidden(true);
   }
 
-  usePhoto() {
-    console.log('using photo', this.props.navigation.state)
+  usePhoto(imgPath) {
+
+    fetch(`https://vision.googleapis.com/v1/images:annotate?key=${Key}`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+              "requests": [
+                {
+              "image": {
+                "content": imgPath
+              },
+              "features": [
+              {
+                "type": "DOCUMENT_TEXT_DETECTION"
+              }
+            ]
+          }
+        ]
+      })
+    })
+    .then(data => this.props.navigation.navigate('ImageResult', data))
+    .catch(err => console.log('error ', err))
+
+  }
+
+  convertImg() {
+    console.log('propsoso', this.props)
+    const imgPath = this.props.navigation.state.params
+    RNFS.readFile(imgPath, 'base64')
+      .then(imgString => this.usePhoto(imgString))
+      .catch(err => console.log(err))
   }
 
   render() {
@@ -40,12 +75,12 @@ export default class TakePhoto extends Component {
         >
           <View style={styles.topBar} />
           <View style={styles.bottomBar}>        
-            <TouchableOpacity style={[styles.goBackBtn, styles.Btn]} onPress={() => goBack()}>
+            <TouchableHighlight style={[styles.goBackBtn, styles.Btn]} onPress={() => goBack()}>
               <Text style={styles.btnTxt}>Go Back</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.submitBtn, styles.Btn]} onPress={this.usePhoto.bind(this)}>
+            </TouchableHighlight>
+            <TouchableHighlight style={[styles.submitBtn, styles.Btn]} onPress={this.convertImg.bind(this)}>
               <Text style={styles.btnTxt}>Use Photo</Text>
-            </TouchableOpacity>
+            </TouchableHighlight>
           </View>
         </ImageBackground>
       </View>
