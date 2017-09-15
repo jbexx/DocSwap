@@ -4,7 +4,8 @@ import {
   View,
   Text,
   ImageBackground,
-  TouchableHighlight,
+  TouchableOpacity,
+  Picker,
   StyleSheet,
   StatusBar,
   Dimensions
@@ -12,17 +13,66 @@ import {
 import { NavigationActions } from "react-navigation";
 
 export default class ImageResult extends Component {
+  constructor() {
+    super()
+    this.state = {
+      picker: false,
+      selectedLanguage: null,
+      text: ''
+    }
+  }
   static navigationOptions = {
-    title: "Image Results"
+    title: "Image Results",
+    header: null
   };
 
+  componentDidMount() {
+    this.setState({
+      text: JSON.parse(this.props.navigation.state.params._bodyText)
+    })
+  }
+
+  togglePicker() {
+    this.setState({
+      picker: !this.state.picker
+    })
+  }
+
   render() {
-      const parsedData = JSON.parse(this.props.navigation.state.params._bodyText)
-    console.log('props in image result', parsedData.responses[0].fullTextAnnotation.text)
+
+    const parsedData = JSON.parse(this.props.navigation.state.params._bodyText)
+console.log('state in IR', this.state)
+    const { goBack } = this.props.navigation;
 
     return (
       <View style={styles.container}>
-        <Text>{parsedData.responses[0].fullTextAnnotation.text}</Text>
+
+          <Text style={styles.resTxt}>{parsedData.responses[0].fullTextAnnotation.text}</Text>
+
+        <View style={styles.bottomBar}> 
+
+          <TouchableOpacity style={[styles.goBackBtn, styles.Btn]} onPress={() => goBack()}>
+            <Text style={styles.btnTxt}>Go Back</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={[styles.submitBtn, styles.Btn]} onPress={this.togglePicker.bind(this)}>
+            <Text style={styles.btnTxt}>Translate Text</Text>
+          </TouchableOpacity>
+
+        </View>
+
+        <Picker 
+                selectedValue={'Language'}
+                onValueChange={ itemValue => this.setState({selectedLanguage: itemValue})}
+                prompt='Choose a Language'>
+          <Picker.Item label="Spanish" value="Spanish" />
+          <Picker.Item label="German" value="German" />
+          <Picker.Item label="French" value="French" />
+          <Picker.Item label="Chinese" value="Chinese" />
+          <Picker.Item label="Japanese" value="Japanese" />
+          <Picker.Item label="Korean" value="Korean" />
+          <Picker.Item label="Thai" value="Thai" />
+        </Picker>
       </View>
     );
   }
@@ -30,9 +80,37 @@ export default class ImageResult extends Component {
 
 const styles = StyleSheet.create({
   container: {
-      alignItems: 'center',
-      justifyContent: 'center'
-  }
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: Dimensions.get("window").height,
+    width: Dimensions.get("window").width
+  },
+
+  resTxt: {
+    alignSelf: 'center'
+  },
+
+  bottomBar: {
+    alignSelf: 'flex-end',
+    backgroundColor: "#000",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: 80,
+    width: '100%'    
+  },
+
+  goBackBtn: {
+    marginLeft: 15
+  },
+
+  btnTxt: {
+    color: 'white'
+  },
+
+  submitBtn: {
+    marginRight: 15
+  },
 });
 
 AppRegistry.registerComponent("ImageResult", () => ImageResult);

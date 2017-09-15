@@ -52,11 +52,23 @@ export default class TakePhoto extends Component {
     .then(data => this.props.navigation.navigate('ImageResult', data))
     .catch(err => console.log('error ', err))
 
+    
+
   }
 
   convertImg() {
-    console.log('propsoso', this.props)
+
+    //from camera /Users/jbecks/Library/Developer/CoreSimulator/Devices/D9FE59D4-5706-4B0B-98D7-9D7B9519D18A/data/Containers/Data/Application/CCDC4308-F7FA-443A-B9B1-0DEBBDF93C01/Documents/24D6D353-B8FA-414F-ADEC-92B672FD056D.jpg
+
+    //from cameraRoll assets-library://asset/asset.JPG?id=729F50DA-9627-42A9-802D-69B22C9EECD2&ext=JPG
+
+    // const data = ['responses': {fullTextAnnotation: {text: 'yo im here'}}]
+    // const mockData = JSON.stringify(data)
+
+
     const imgPath = this.props.navigation.state.params
+
+    console.log('this.props.state ', this.props)
     RNFS.readFile(imgPath, 'base64')
       .then(imgString => this.usePhoto(imgString))
       .catch(err => console.log(err))
@@ -71,17 +83,22 @@ export default class TakePhoto extends Component {
           style={styles.img}
           source={{
             uri: state.params
-          }}
-        >
+          }}>
+
           <View style={styles.topBar} />
-          <View style={styles.bottomBar}>        
+
+          <View style={styles.bottomBar}> 
+
             <TouchableHighlight style={[styles.goBackBtn, styles.Btn]} onPress={() => goBack()}>
               <Text style={styles.btnTxt}>Go Back</Text>
             </TouchableHighlight>
+
             <TouchableHighlight style={[styles.submitBtn, styles.Btn]} onPress={this.convertImg.bind(this)}>
               <Text style={styles.btnTxt}>Use Photo</Text>
             </TouchableHighlight>
+            
           </View>
+
         </ImageBackground>
       </View>
     );

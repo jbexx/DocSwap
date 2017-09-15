@@ -12,6 +12,7 @@ export default class Photos extends Component {
   }
 
   chosenPicture() {
+    console.log('props in phtolist', this.props)
     this.props.navigate('Verify', this.props.image)
   }
 

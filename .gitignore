@@ -52,4 +52,4 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 
-./assets/key/key.js
+key.js
