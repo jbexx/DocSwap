@@ -60,19 +60,21 @@ console.log('state in IR', this.state)
           </TouchableOpacity>
 
         </View>
-
-        <Picker 
-                selectedValue={'Language'}
-                onValueChange={ itemValue => this.setState({selectedLanguage: itemValue})}
-                prompt='Choose a Language'>
-          <Picker.Item label="Spanish" value="Spanish" />
-          <Picker.Item label="German" value="German" />
-          <Picker.Item label="French" value="French" />
-          <Picker.Item label="Chinese" value="Chinese" />
-          <Picker.Item label="Japanese" value="Japanese" />
-          <Picker.Item label="Korean" value="Korean" />
-          <Picker.Item label="Thai" value="Thai" />
-        </Picker>
+        { this.state.picker ?
+            <Picker 
+                    selectedValue={'Language'}
+                    onValueChange={ itemValue => this.setState({selectedLanguage: itemValue})}
+                    prompt='Choose a Language'>
+              <Picker.Item label="Spanish" value="Spanish" />
+              <Picker.Item label="German" value="German" />
+              <Picker.Item label="French" value="French" />
+              <Picker.Item label="Chinese" value="Chinese" />
+              <Picker.Item label="Japanese" value="Japanese" />
+              <Picker.Item label="Korean" value="Korean" />
+              <Picker.Item label="Thai" value="Thai" />
+            </Picker>
+            : null
+        }
       </View>
     );
   }
@@ -98,6 +100,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: 80,
     width: '100%'    
+  },
+
+  Btn: {
+    flexDirection: 'column',
+    justifyContent: 'center', 
+    height: 80
   },
 
   goBackBtn: {
