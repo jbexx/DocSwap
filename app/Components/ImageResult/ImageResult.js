@@ -12,13 +12,15 @@ import {
 } from "react-native";
 import { NavigationActions } from "react-navigation";
 
+import key from '../../../assets/key/key'
+
 export default class ImageResult extends Component {
   constructor() {
     super()
     this.state = {
       picker: false,
-      selectedLanguage: null,
-      text: ''
+      selectedLanguage: 'my',
+      text: 'Hello, how are you?'
     }
   }
   static navigationOptions = {
@@ -27,15 +29,32 @@ export default class ImageResult extends Component {
   };
 
   componentDidMount() {
-    this.setState({
-      text: JSON.parse(this.props.navigation.state.params._bodyText)
-    })
+    // this.setState({
+    //   text: JSON.parse(this.props.navigation.state.params._bodyText)
+    // })
   }
 
   togglePicker() {
     this.setState({
       picker: !this.state.picker
     })
+  }
+
+  translateText() {
+    fetch(`https://translation.googleapis.com/language/translate/v2?key=${key}`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        q: this.state.text,
+        target: this.state.selectedLanguage
+      })
+    })
+    .then(data => data.json())
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
   }
 
   render() {
@@ -55,7 +74,7 @@ console.log('state in IR', this.state)
             <Text style={styles.btnTxt}>Go Back</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.submitBtn, styles.Btn]} onPress={this.togglePicker.bind(this)}>
+          <TouchableOpacity style={[styles.submitBtn, styles.Btn]} onPress={this.translateText.bind(this)}>
             <Text style={styles.btnTxt}>Translate Text</Text>
           </TouchableOpacity>
 

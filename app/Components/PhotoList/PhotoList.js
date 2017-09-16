@@ -6,7 +6,6 @@ import { AppRegistry,
          StyleSheet } from "react-native";
 
 export default class Photos extends Component {
-
   static navigationOptions = {
     title: "Camera Roll",
   }

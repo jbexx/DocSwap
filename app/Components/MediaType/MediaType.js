@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { NavigationActions, NavigationState, navigator, NavigationUriActionPayload } from 'react-navigation'
 import {
   AppRegistry,
   Image,
@@ -14,8 +15,23 @@ export default class MediaType extends Component {
     header: null
   };
 
+  componentDidMount() {
+    // this.resetNav()
+    console.log('navigator', navigator)
+  }
+  
+  resetNav() {
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'MediaType'})
+      ]
+    })
+    dispatch = this.props.navigation.dispatch(resetAction)
+  }
+  
   render() {
-    const { navigate } = this.props.navigation;
+    const { navigate, dispatch } = this.props.navigation;
 
     return (
       <ImageBackground
