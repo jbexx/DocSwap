@@ -12,14 +12,15 @@ import {
 } from "react-native";
 import { NavigationActions } from "react-navigation";
 
-import key from '../../../assets/key/key'
+import key from '../../../assets/key/key';
+import languages from '../../../assets/languages/languages';
 
 export default class ImageResult extends Component {
   constructor() {
     super()
     this.state = {
       picker: false,
-      selectedLanguage: 'my',
+      selectedLanguage: 'zh-CN',
       text: 'Hello, how are you?'
     }
   }
@@ -53,20 +54,39 @@ export default class ImageResult extends Component {
       })
     })
     .then(data => data.json())
-    .then(res => console.log(res))
+    .then(res => this.props.navigation.navigate('LangResult', res))
     .catch(err => console.log(err))
   }
 
   render() {
 
     const parsedData = JSON.parse(this.props.navigation.state.params._bodyText)
-console.log('state in IR', this.state)
+console.log('state in ImgRes', this.state)
     const { goBack } = this.props.navigation;
+
+    const mappedLanguages = languages.map(lang => <Picker.Item key={lang.code} label={lang.language} value={lang.code} />)
 
     return (
       <View style={styles.container}>
 
-          <Text style={styles.resTxt}>{parsedData.responses[0].fullTextAnnotation.text}</Text>
+        <Text style={styles.resTxt}>{parsedData.responses[0].fullTextAnnotation.text}</Text>
+
+        { this.state.picker ?
+        <View>
+            <Picker 
+                    selectedValue={this.state.selectedLanguage}
+                    onValueChange={ itemValue => this.setState({selectedLanguage: itemValue})}
+                    prompt='Choose a Language'
+                    style={styles.picker}
+                    itemStyle={{color: 'black'}}>
+                    {mappedLanguages}
+            </Picker>
+            <TouchableOpacity onPress={() => this.translateText()}>
+              <Text>Translate</Text>
+            </TouchableOpacity>
+        </View>
+            : null
+        }
 
         <View style={styles.bottomBar}> 
 
@@ -74,26 +94,12 @@ console.log('state in IR', this.state)
             <Text style={styles.btnTxt}>Go Back</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.submitBtn, styles.Btn]} onPress={this.translateText.bind(this)}>
+          <TouchableOpacity style={[styles.submitBtn, styles.Btn]} onPress={this.togglePicker.bind(this)}>
             <Text style={styles.btnTxt}>Translate Text</Text>
           </TouchableOpacity>
 
         </View>
-        { this.state.picker ?
-            <Picker 
-                    selectedValue={'Language'}
-                    onValueChange={ itemValue => this.setState({selectedLanguage: itemValue})}
-                    prompt='Choose a Language'>
-              <Picker.Item label="Spanish" value="Spanish" />
-              <Picker.Item label="German" value="German" />
-              <Picker.Item label="French" value="French" />
-              <Picker.Item label="Chinese" value="Chinese" />
-              <Picker.Item label="Japanese" value="Japanese" />
-              <Picker.Item label="Korean" value="Korean" />
-              <Picker.Item label="Thai" value="Thai" />
-            </Picker>
-            : null
-        }
+       
       </View>
     );
   }
@@ -102,14 +108,18 @@ console.log('state in IR', this.state)
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'space-between',
     height: Dimensions.get("window").height,
     width: Dimensions.get("window").width
   },
 
   resTxt: {
-    alignSelf: 'center'
+    // alignSelf: 'center'
+  },
+
+  picker: {
+    // alignItems: 'center'
   },
 
   bottomBar: {

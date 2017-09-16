@@ -52,8 +52,6 @@ export default class TakePhoto extends Component {
     .then(data => this.props.navigation.navigate('ImageResult', data))
     .catch(err => console.log('error ', err))
 
-    
-
   }
 
   convertImg() {
