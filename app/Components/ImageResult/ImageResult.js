@@ -21,7 +21,7 @@ export default class ImageResult extends Component {
     this.state = {
       picker: false,
       selectedLanguage: 'zh-CN',
-      text: 'Hello, how are you?'
+      text: ''
     }
   }
   static navigationOptions = {
@@ -30,9 +30,9 @@ export default class ImageResult extends Component {
   };
 
   componentDidMount() {
-    // this.setState({
-    //   text: JSON.parse(this.props.navigation.state.params._bodyText)
-    // })
+    this.setState({
+      text: JSON.parse(this.props.navigation.state.params._bodyText)
+    })
   }
 
   togglePicker() {
@@ -60,8 +60,7 @@ export default class ImageResult extends Component {
 
   render() {
 
-    const parsedData = JSON.parse(this.props.navigation.state.params._bodyText)
-console.log('state in ImgRes', this.state)
+    const parsedData = JSON.parse(this.props.navigation.state.params._bodyText);
     const { goBack } = this.props.navigation;
 
     const mappedLanguages = languages.map(lang => <Picker.Item key={lang.code} label={lang.language} value={lang.code} />)
@@ -108,7 +107,7 @@ console.log('state in ImgRes', this.state)
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    // alignItems: 'center',
+    alignItems: 'center',
     justifyContent: 'space-between',
     height: Dimensions.get("window").height,
     width: Dimensions.get("window").width

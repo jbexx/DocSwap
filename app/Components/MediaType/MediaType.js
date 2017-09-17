@@ -17,7 +17,7 @@ export default class MediaType extends Component {
 
   componentDidMount() {
     // this.resetNav()
-    console.log('navigator', navigator)
+    // console.log('navigator', navigator)
   }
   
   resetNav() {
