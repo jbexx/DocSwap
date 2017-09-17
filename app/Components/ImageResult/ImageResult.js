@@ -20,7 +20,7 @@ export default class ImageResult extends Component {
     super()
     this.state = {
       picker: false,
-      selectedLanguage: 'zh-CN',
+      selectedLanguage: '',
       text: ''
     }
   }
@@ -31,7 +31,7 @@ export default class ImageResult extends Component {
 
   componentDidMount() {
     this.setState({
-      text: JSON.parse(this.props.navigation.state.params._bodyText)
+      text: this.props.navigation.state.params
     })
   }
 
@@ -59,28 +59,27 @@ export default class ImageResult extends Component {
   }
 
   render() {
-
-    const parsedData = JSON.parse(this.props.navigation.state.params._bodyText);
+console.log('state in IR', this.state)
     const { goBack } = this.props.navigation;
 
-    const mappedLanguages = languages.map(lang => <Picker.Item key={lang.code} label={lang.language} value={lang.code} />)
+    const mappedLanguages = languages.map(lang => <Picker.Item key={ lang.code } label={ lang.language } value={ lang.code } />)
 
     return (
-      <View style={styles.container}>
+      <View style={ styles.container }>
 
-        <Text style={styles.resTxt}>{parsedData.responses[0].fullTextAnnotation.text}</Text>
+        <Text style={ styles.resTxt }>{ this.state.text }</Text>
 
         { this.state.picker ?
         <View>
             <Picker 
-                    selectedValue={this.state.selectedLanguage}
-                    onValueChange={ itemValue => this.setState({selectedLanguage: itemValue})}
+                    selectedValue={ this.state.selectedLanguage }
+                    onValueChange={ itemValue => this.setState({selectedLanguage: itemValue })}
                     prompt='Choose a Language'
-                    style={styles.picker}
-                    itemStyle={{color: 'black'}}>
-                    {mappedLanguages}
+                    style={ styles.picker }
+                    itemStyle={ styles.langStyle }>
+                    { mappedLanguages }
             </Picker>
-            <TouchableOpacity onPress={() => this.translateText()}>
+            <TouchableOpacity onPress={ () => this.translateText() }>
               <Text>Translate</Text>
             </TouchableOpacity>
         </View>
@@ -89,12 +88,12 @@ export default class ImageResult extends Component {
 
         <View style={styles.bottomBar}> 
 
-          <TouchableOpacity style={[styles.goBackBtn, styles.Btn]} onPress={() => goBack()}>
-            <Text style={styles.btnTxt}>Go Back</Text>
+          <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={ () => goBack() }>
+            <Text style={ styles.btnTxt }>Go Back</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.submitBtn, styles.Btn]} onPress={this.togglePicker.bind(this)}>
-            <Text style={styles.btnTxt}>Translate Text</Text>
+          <TouchableOpacity style={ [styles.submitBtn, styles.Btn] } onPress={ this.togglePicker.bind(this) }>
+            <Text style={ styles.btnTxt }>Translate Text</Text>
           </TouchableOpacity>
 
         </View>
@@ -114,11 +113,11 @@ const styles = StyleSheet.create({
   },
 
   resTxt: {
-    // alignSelf: 'center'
+    marginTop: 10
   },
 
   picker: {
-    // alignItems: 'center'
+    width: Dimensions.get("window").width
   },
 
   bottomBar: {
@@ -129,6 +128,7 @@ const styles = StyleSheet.create({
     height: 80,
     width: '100%'    
   },
+
 
   Btn: {
     flexDirection: 'column',

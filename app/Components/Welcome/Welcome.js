@@ -4,8 +4,8 @@ import { AppRegistry, StyleSheet, Image, Dimensions } from "react-native";
 const Welcome = () => {
   return (
     <Image
-      source={require("../../../assets/WelcomePage.png")}
-      style={styles.background}
+      source={ require("../../../assets/WelcomePage.png") }
+      style={ styles.background }
     />
   );
 };
