@@ -18,8 +18,8 @@ export default class Photos extends Component {
 
     return (
         <TouchableOpacity 
-          activeOpacity={0.7}
-          onPress={this.chosenPicture.bind(this)}>
+          activeOpacity={ 0.7 }
+          onPress={ this.chosenPicture.bind(this) }>
           <Image 
             style={ styles.thumbnail }
             source={{ uri: this.props.image }}

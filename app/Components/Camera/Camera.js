@@ -23,11 +23,8 @@ export default class TakePhoto extends Component {
   };
 
   takePicture() {
-    //if I want to grab metadata later
-    const options = {};
-    //options.location = ...
     this.camera
-      .capture({ metadata: options })
+      .capture()
       .then(data => {
         this.props.navigation.navigate("Verify", data.path);
       })
@@ -43,24 +40,24 @@ export default class TakePhoto extends Component {
           ref={cam => {
             this.camera = cam;
           }}
-          style={styles.cam}
-          aspect={Aspect.fill}
-          captureTarget={CaptureTarget.disk}
-          Orientation={Orientation.auto}
-          onFocusChanged={(e) => console.log('focused!')}
-          onZoomChanged={(e) => console.log('zoomed!')}
+          style={ styles.cam }
+          aspect={ Aspect.fill }
+          captureTarget={ CaptureTarget.disk }
+          Orientation={ Orientation.auto }
+          onFocusChanged={ (e) => {} }
+          onZoomChanged={ (e) => {} }
         >
-          <View style={styles.bottomBar}> 
+          <View style={ styles.bottomBar }> 
 
-            <TouchableOpacity style={[styles.goBackBtn, styles.Btn]} onPress={() => this.props.navigation.goBack()}>
-              <Text style={styles.btnTxt}>Go Back</Text>
+            <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={() => this.props.navigation.goBack()}>
+              <Text style={ styles.btnTxt }>Go Back</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={this.takePicture.bind(this)}>
-              <View style={styles.camBtn} />
+            <TouchableOpacity onPress={ this.takePicture.bind(this) }>
+              <View style={ styles.camBtn } />
             </TouchableOpacity>
 
-            <TouchableOpacity style={[styles.submitBtn, styles.Btn]} />
+            <TouchableOpacity style={ [styles.submitBtn, styles.Btn] } />
             
           </View>
         </Camera>

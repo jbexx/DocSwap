@@ -26,6 +26,11 @@ export default class TakePhoto extends Component {
     StatusBar.setHidden(true);
   }
 
+  cleanData(data) {
+    const cleanedData = JSON.parse(data._bodyText).responses[0].fullTextAnnotation.text
+    this.props.navigation.navigate('ImageResult', cleanedData)
+  }
+
   usePhoto(imgPath) {
 
     fetch(`https://vision.googleapis.com/v1/images:annotate?key=${Key}`, {
@@ -49,7 +54,7 @@ export default class TakePhoto extends Component {
         ]
       })
     })
-    .then(data => this.props.navigation.navigate('ImageResult', data))
+    .then(data => this.cleanData(data))
     .catch(err => console.log('error ', err))
 
   }
@@ -59,9 +64,6 @@ export default class TakePhoto extends Component {
     //from camera /Users/jbecks/Library/Developer/CoreSimulator/Devices/D9FE59D4-5706-4B0B-98D7-9D7B9519D18A/data/Containers/Data/Application/CCDC4308-F7FA-443A-B9B1-0DEBBDF93C01/Documents/24D6D353-B8FA-414F-ADEC-92B672FD056D.jpg
 
     //from cameraRoll assets-library://asset/asset.JPG?id=729F50DA-9627-42A9-802D-69B22C9EECD2&ext=JPG
-
-    // const data = ['responses': {fullTextAnnotation: {text: 'yo im here'}}]
-    // const mockData = JSON.stringify(data)
 
 
     const imgPath = this.props.navigation.state.params
@@ -77,21 +79,21 @@ export default class TakePhoto extends Component {
     return (
       <View>
         <ImageBackground
-          style={styles.img}
+          style={ styles.img }
           source={{
             uri: state.params
           }}>
 
-          <View style={styles.topBar} />
+          <View style={ styles.topBar } />
 
-          <View style={styles.bottomBar}> 
+          <View style={ styles.bottomBar }> 
 
-            <TouchableHighlight style={[styles.goBackBtn, styles.Btn]} onPress={() => goBack()}>
-              <Text style={styles.btnTxt}>Go Back</Text>
+            <TouchableHighlight style={ [styles.goBackBtn, styles.Btn] } onPress={ () => goBack() }>
+              <Text style={ styles.btnTxt }>Go Back</Text>
             </TouchableHighlight>
 
-            <TouchableHighlight style={[styles.submitBtn, styles.Btn]} onPress={this.convertImg.bind(this)}>
-              <Text style={styles.btnTxt}>Use Photo</Text>
+            <TouchableHighlight style={ [styles.submitBtn, styles.Btn] } onPress={ this.convertImg.bind(this) }>
+              <Text style={ styles.btnTxt }>Use Photo</Text>
             </TouchableHighlight>
             
           </View>

@@ -43,10 +43,10 @@ export default class DocUp extends Component {
 
     if (!this.state.photoArray) {
       return (
-              <View style={styles.container}>
+              <View style={ styles.container }>
                 <ActivityIndicator
-                style={styles.wheel}
-                animating={this.state.animating}
+                style={ styles.wheel }
+                animating={ this.state.animating }
                 size="large"
                 color='#448ccb'
                 />
@@ -61,7 +61,7 @@ export default class DocUp extends Component {
         renderItem={ ({ item }) => <PhotoList 
                                       image={ item.node.image.uri }
                                       navigate={ this.props.navigation.navigate }
-                                      goBack={this.props.navigation.goBack} /> }
+                                      goBack={ this.props.navigation.goBack } /> }
         keyExtractor={ item => item.node.timestamp }
       />
     );

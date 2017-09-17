@@ -14,11 +14,6 @@ export default class MediaType extends Component {
     title: "MediaType",
     header: null
   };
-
-  componentDidMount() {
-    // this.resetNav()
-    // console.log('navigator', navigator)
-  }
   
   resetNav() {
     const resetAction = NavigationActions.reset({
@@ -35,39 +30,39 @@ export default class MediaType extends Component {
 
     return (
       <ImageBackground
-        source={require("../../../assets/blue-background.png")}
-        style={styles.background}
+        source={ require("../../../assets/blue-background.png") }
+        style={ styles.background }
       >
         <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigate("TakePhoto")}
-          activeOpacity={0.5}
+          style={ styles.button }
+          onPress={ () => navigate("TakePhoto") }
+          activeOpacity={ 0.5 }
         >
           <Image
-            source={require("../../../assets/photo-camera.png")}
-            style={[styles.cam, styles.img]}
+            source={ require("../../../assets/photo-camera.png") }
+            style={ [styles.cam, styles.img] }
           />
           
           <Image
-            style={styles.picText}
-            source={require("../../../assets/picture-text.png")}
+            style={ styles.picText }
+            source={ require("../../../assets/picture-text.png") }
           />
         </TouchableOpacity>
 
-        <Image source={require("../../../assets/bar.png")} style={styles.bar} />
+        <Image source={ require("../../../assets/bar.png") } style={ styles.bar } />
 
         <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigate("Upload")}
-          activeOpacity={0.5}
+          style={ styles.button }
+          onPress={ () => navigate("Upload") }
+          activeOpacity={ 0.5 }
         >
           <Image
-            source={require("../../../assets/upload.png")}
-            style={[styles.doc, styles.img]}
+            source={ require("../../../assets/upload.png") }
+            style={ [styles.doc, styles.img] }
           />
           <Image
-            style={styles.docText}
-            source={require("../../../assets/doc-text.png")}
+            style={ styles.docText }
+            source={ require("../../../assets/doc-text.png") }
           />
         </TouchableOpacity>
       </ImageBackground>
