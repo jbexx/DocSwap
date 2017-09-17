@@ -66,7 +66,6 @@ export default class TakePhoto extends Component {
 
     const imgPath = this.props.navigation.state.params
 
-    console.log('this.props.state ', this.props)
     RNFS.readFile(imgPath, 'base64')
       .then(imgString => this.usePhoto(imgString))
       .catch(err => console.log(err))

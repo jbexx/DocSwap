@@ -11,26 +11,26 @@ export default class Photos extends Component {
   }
 
   chosenPicture() {
-    console.log('props in phtolist', this.props)
     this.props.navigate('Verify', this.props.image)
   }
 
   render() {
 
     return (
-      <TouchableOpacity 
-        activeOpacity={0.7}
-        onPress={this.chosenPicture.bind(this)}>
-        <Image 
-          style={ styles.thumbnail }
-          source={{ uri: this.props.image }}
-           />
-      </TouchableOpacity>
+        <TouchableOpacity 
+          activeOpacity={0.7}
+          onPress={this.chosenPicture.bind(this)}>
+          <Image 
+            style={ styles.thumbnail }
+            source={{ uri: this.props.image }}
+            />
+        </TouchableOpacity>
     );
   }
 }
 
 const styles = StyleSheet.create({
+
   thumbnail: {
     borderWidth: 0.5,
     borderColor: "#fff",

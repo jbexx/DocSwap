@@ -40,7 +40,7 @@ export default class DocUp extends Component {
   }
 
   render() {
-    console.log(this.state.photoArray)
+
     if (!this.state.photoArray) {
       return (
               <View style={styles.container}>

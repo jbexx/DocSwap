@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {
   AppRegistry,
   View,
+  Text,
   TouchableOpacity,
   ActivityIndicator,
   StyleSheet,
@@ -34,7 +35,7 @@ export default class TakePhoto extends Component {
   }
 
   render() {
-    const { Aspect, CaptureTarget } = Camera.constants;
+    const { Aspect, CaptureTarget, Orientation } = Camera.constants;
 
     return (
       <View>
@@ -45,10 +46,23 @@ export default class TakePhoto extends Component {
           style={styles.cam}
           aspect={Aspect.fill}
           captureTarget={CaptureTarget.disk}
+          Orientation={Orientation.auto}
+          onFocusChanged={(e) => console.log('focused!')}
+          onZoomChanged={(e) => console.log('zoomed!')}
         >
-          <TouchableOpacity onPress={this.takePicture.bind(this)}>
-            <View style={styles.camBtn} />
-          </TouchableOpacity>
+          <View style={styles.bottomBar}> 
+
+            <TouchableOpacity style={[styles.goBackBtn, styles.Btn]} onPress={() => this.props.navigation.goBack()}>
+              <Text style={styles.btnTxt}>Go Back</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={this.takePicture.bind(this)}>
+              <View style={styles.camBtn} />
+            </TouchableOpacity>
+
+            <TouchableOpacity style={[styles.submitBtn, styles.Btn]} />
+            
+          </View>
         </Camera>
       </View>
     );
@@ -63,13 +77,42 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width
   },
 
+  bottomBar: {
+    alignSelf: 'flex-end',
+    backgroundColor: "rgba(0,0,0,0.7)",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: 80,
+    width: '100%'    
+  },
+
   camBtn: {
     height: 50,
     width: 50,
     borderRadius: 25,
     borderWidth: 1,
-    borderColor: "#d6d7da"
-  }
+    borderColor: "#d6d7da",
+    marginTop: 15
+  },
+
+  Btn: {
+    flexDirection: 'column',
+    justifyContent: 'center', 
+    height: 80
+  },
+
+  goBackBtn: {
+    marginLeft: 15
+  },
+
+  btnTxt: {
+    color: 'white'
+  },
+
+  submitBtn: {
+    marginRight: 15,
+    width: 55
+  },
 });
 
 AppRegistry.registerComponent("TakePhoto", () => TakePhoto);
