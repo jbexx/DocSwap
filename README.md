@@ -29,6 +29,7 @@ Optical Character Recognition Integrating Language Translation
     ```
     react-native start
     ```
+    to run the local server
 
 - then run...
     ```
