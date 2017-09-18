@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import {
   AppRegistry,
-  Text,
   View,
-  Image,
   FlatList,
-  TouchableOpacity,
   ActivityIndicator,
   Dimensions,
   CameraRoll,
@@ -22,8 +19,7 @@ export default class DocUp extends Component {
     };
   }
   static navigationOptions = {
-    title: "Document Upload",
-    header: null
+    title: "CameraRoll",
   };
 
   componentDidMount() {

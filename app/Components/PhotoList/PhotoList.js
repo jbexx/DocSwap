@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { AppRegistry,
-         Image,
-         TouchableOpacity,
-         Dimensions,
-         StyleSheet } from "react-native";
+import { 
+  AppRegistry,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+  StyleSheet
+} from "react-native";
 
 export default class Photos extends Component {
   static navigationOptions = {

@@ -28,7 +28,6 @@ const DocApp = StackNavigator({
   TakePhoto: { screen: TakePhoto },
   Upload: { screen: DocUp },
   Verify: { screen: Verify },
-  PhotoList: { screen: PhotoList },
   ImageResult: { screen: ImageResult },
   LangResult: { screen: LangResult }
 });
