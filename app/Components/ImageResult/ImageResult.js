@@ -3,6 +3,7 @@ import {
   AppRegistry,
   View,
   Text,
+  TextInput,
   TouchableOpacity,
   Picker,
   StyleSheet,
@@ -24,7 +25,7 @@ export default class ImageResult extends Component {
   }
 
   static navigationOptions = {
-    title: "Image Results",
+    title: "Translate Again",
     header: null
   };
 
@@ -73,7 +74,8 @@ export default class ImageResult extends Component {
     return (
       <View style={ styles.container }>
 
-        <Text style={ styles.resTxt }>{ this.state.text }</Text>
+      <Text style= { styles.resTxt }>{this.state.text}</Text>
+        {/* <TextInput style={ styles.resTxt } onChange={ text => this.setState({ text }) } multiline={ true } value={ this.state.text } /> */}
 
         { this.state.picker ?
         <View>
@@ -85,8 +87,8 @@ export default class ImageResult extends Component {
                     itemStyle={ styles.langStyle }>
                     { mappedLanguages }
             </Picker>
-            <TouchableOpacity onPress={ () => this.translateText() }>
-              <Text>Translate</Text>
+            <TouchableOpacity style={ styles.translateBtn } onPress={ () => this.translateText() }>
+              <Text style={ styles.translateTxt }>Go</Text>
             </TouchableOpacity>
         </View>
             : null
@@ -126,6 +128,18 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width
   },
 
+  translateBtn: {
+    alignItems: 'center',
+    marginTop: 30
+  },
+
+  translateTxt: {
+    borderWidth: 2,
+    borderColor: '#6dcff6',
+    fontSize: 30,
+    padding: 25
+  },
+
   bottomBar: {
     alignSelf: 'flex-end',
     backgroundColor: "#000",
@@ -135,10 +149,9 @@ const styles = StyleSheet.create({
     width: '100%'    
   },
 
-
   Btn: {
     flexDirection: 'column',
-    justifyContent: 'center', 
+    justifyContent: 'center',
     height: 80
   },
 
@@ -147,7 +160,7 @@ const styles = StyleSheet.create({
   },
 
   btnTxt: {
-    color: 'white'
+    color: 'white',
   },
 
   submitBtn: {
