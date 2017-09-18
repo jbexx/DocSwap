@@ -4,7 +4,7 @@ import {
   View,
   Text,
   ImageBackground,
-  TouchableHighlight,
+  TouchableOpacity,
   StyleSheet,
   StatusBar,
   Dimensions
@@ -13,8 +13,7 @@ import { NavigationActions } from "react-navigation";
 
 import Camera from "react-native-camera";
 import Key from '../../../assets/key/key';
-
-const RNFS = require('react-native-fs');
+import RNFS from 'react-native-fs'
 
 export default class TakePhoto extends Component {
   static navigationOptions = {
@@ -88,13 +87,13 @@ export default class TakePhoto extends Component {
 
           <View style={ styles.bottomBar }> 
 
-            <TouchableHighlight style={ [styles.goBackBtn, styles.Btn] } onPress={ () => goBack() }>
-              <Text style={ styles.btnTxt }>Go Back</Text>
-            </TouchableHighlight>
+            <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={ () => goBack() }>
+              <Text style={ styles.btnTxt }>Retake</Text>
+            </TouchableOpacity>
 
-            <TouchableHighlight style={ [styles.submitBtn, styles.Btn] } onPress={ this.convertImg.bind(this) }>
+            <TouchableOpacity style={ [styles.submitBtn, styles.Btn] } onPress={ this.convertImg.bind(this) }>
               <Text style={ styles.btnTxt }>Use Photo</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
             
           </View>
 

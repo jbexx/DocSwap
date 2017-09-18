@@ -3,11 +3,9 @@ import {
   AppRegistry,
   View,
   Text,
-  ImageBackground,
   TouchableOpacity,
   Picker,
   StyleSheet,
-  StatusBar,
   Dimensions
 } from "react-native";
 import { NavigationActions } from "react-navigation";

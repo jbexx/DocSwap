@@ -11,7 +11,7 @@ import {
 
 export default class MediaType extends Component {
   static navigationOptions = {
-    title: "MediaType",
+    title: "Capture",
     header: null
   };
   
