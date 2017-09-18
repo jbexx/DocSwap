@@ -22,7 +22,9 @@ Optical Character Recognition Integrating Language Translation
 - you will need to have xcode installed on your machine or some other simulator to run the app
 
     to download xcode go to [this page](https://developer.apple.com/xcode/downloads/)
+    
     you will need to login with your Apple ID and Password
+    
     once you have this installed, then in your terminal run
     ```
     react-native start
