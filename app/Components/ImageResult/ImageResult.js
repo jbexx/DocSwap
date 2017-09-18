@@ -20,10 +20,11 @@ export default class ImageResult extends Component {
     super()
     this.state = {
       picker: false,
-      selectedLanguage: '',
+      selectedLanguage: 'af',
       text: ''
     }
   }
+
   static navigationOptions = {
     title: "Image Results",
     header: null
@@ -41,6 +42,10 @@ export default class ImageResult extends Component {
     })
   }
 
+  cleanText(res) {
+    this.props.navigation.navigate('LangResult', res.data.translations[0].translatedText)
+  }
+
   translateText() {
     fetch(`https://translation.googleapis.com/language/translate/v2?key=${key}`, {
       method: 'POST',
@@ -54,12 +59,15 @@ export default class ImageResult extends Component {
       })
     })
     .then(data => data.json())
-    .then(res => this.props.navigation.navigate('LangResult', res))
+    .then(res => this.cleanText(res))
     .catch(err => console.log(err))
   }
 
+
   render() {
-console.log('state in IR', this.state)
+
+    console.log('state in ir', this.state)
+
     const { goBack } = this.props.navigation;
 
     const mappedLanguages = languages.map(lang => <Picker.Item key={ lang.code } label={ lang.language } value={ lang.code } />)
@@ -73,7 +81,7 @@ console.log('state in IR', this.state)
         <View>
             <Picker 
                     selectedValue={ this.state.selectedLanguage }
-                    onValueChange={ itemValue => this.setState({selectedLanguage: itemValue })}
+                    onValueChange={ itemValue => this.setState({ selectedLanguage: itemValue })}
                     prompt='Choose a Language'
                     style={ styles.picker }
                     itemStyle={ styles.langStyle }>
