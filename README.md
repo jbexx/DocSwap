@@ -12,7 +12,7 @@ Optical Character Recognition Integrating Language Translation
 
    This is a Mobile App built in React-Native that implements the Camera functionality to allow the user to take a picture of a document.  It is then posted to the Google Cloud Vision API where the Optical Character Recognition functionality of the API is used to read the document and returns the text of that document.
 
-   The user can then select a language they wish to translate the document into.  Another post is made to the Google Cloud Translation API where it is translated and returned to be displayed to the user.
+   The user can then select a language they wish to translate the document into.  Another post is made to the Google Cloud Translation API where it is translated and returned to be displayed to the user in the language they chose.
 
 ### Use
 - Clone this repo and run 
