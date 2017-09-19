@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { AppRegistry, Text, View } from "react-native";
-import { StackNavigator } from "react-navigation";
+import { StackNavigator, TabNavigator } from "react-navigation";
 
 import App from "./app/Components/App/App";
 import MediaType from "./app/Components/MediaType/MediaType";
