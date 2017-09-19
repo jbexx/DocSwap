@@ -4,6 +4,7 @@ import {
   AppRegistry,
   Image,
   ImageBackground,
+  TextInput,
   TouchableOpacity,
   Dimensions,
   StyleSheet
@@ -33,6 +34,7 @@ export default class MediaType extends Component {
         source={ require("../../../assets/blue-background.png") }
         style={ styles.background }
       >
+      
         <TouchableOpacity
           style={ styles.button }
           onPress={ () => navigate("TakePhoto") }

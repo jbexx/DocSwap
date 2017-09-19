@@ -88,7 +88,7 @@ export default class TakePhoto extends Component {
           <View style={ styles.bottomBar }> 
 
             <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={ () => goBack() }>
-              <Text style={ styles.btnTxt }>Retake</Text>
+              <Text style={ styles.btnTxt }>Go Back</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={ [styles.submitBtn, styles.Btn] } onPress={ this.convertImg.bind(this) }>

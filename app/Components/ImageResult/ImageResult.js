@@ -25,7 +25,7 @@ export default class ImageResult extends Component {
   }
 
   static navigationOptions = {
-    title: "Translate Again",
+    title: "Image Result",
     header: null
   };
 
@@ -42,7 +42,9 @@ export default class ImageResult extends Component {
   }
 
   cleanText(res) {
-    this.props.navigation.navigate('LangResult', res.data.translations[0].translatedText)
+    console.log('res ', res)
+    // this.props.navigation.navigate({ routeName: 'FinalTabs' }, { text: res.data.translations[0].translatedText })
+    this.props.navigation.navigate('FinalTabs', res.data.translations[0].translatedText)
   }
 
   translateText() {
@@ -64,21 +66,23 @@ export default class ImageResult extends Component {
 
 
   render() {
-
-    console.log('state in ir', this.state)
-
+    console.log('state in ir ', this.state)
     const { goBack } = this.props.navigation;
 
-    const mappedLanguages = languages.map(lang => <Picker.Item key={ lang.code } label={ lang.language } value={ lang.code } />)
+    const mappedLanguages = languages.map(lang => <Picker.Item key={ lang.code }
+                                                               label={ lang.language }
+                                                               value={ lang.code } />)
 
     return (
       <View style={ styles.container }>
 
-      <Text style= { styles.resTxt }>{this.state.text}</Text>
-        {/* <TextInput style={ styles.resTxt } onChange={ text => this.setState({ text }) } multiline={ true } value={ this.state.text } /> */}
+        <TextInput style={ styles.resTxt }
+                   onChangeText={ text => this.setState({ text }) }
+                   multiline={ true }
+                   value={ this.state.text } />
 
         { this.state.picker ?
-        <View>
+        <View style={ styles.pickerContainer }>
             <Picker 
                     selectedValue={ this.state.selectedLanguage }
                     onValueChange={ itemValue => this.setState({ selectedLanguage: itemValue })}
@@ -121,10 +125,18 @@ const styles = StyleSheet.create({
   },
 
   resTxt: {
-    marginTop: 10
+    backgroundColor: '#ededed',
+    height: Dimensions.get("window").height - 80,
+    width: Dimensions.get("window").width,
+    padding: 10
+  },
+
+  pickerContainer: {
+    position: 'absolute'
   },
 
   picker: {
+    marginTop: Dimensions.get('window').height / 3,
     width: Dimensions.get("window").width
   },
 
