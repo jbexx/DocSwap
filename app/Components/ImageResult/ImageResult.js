@@ -22,6 +22,7 @@ export default class ImageResult extends Component {
     super()
     this.state = {
       picker: false,
+      editable: false,
       selectedLanguage: 'af',
       text: ''
     }
@@ -49,6 +50,12 @@ export default class ImageResult extends Component {
     this.props.navigation.navigate('LangResult', Object.assign({}, { translation: res.data.translations[0].translatedText }, 
       { homeKey: this.props.navigation.state.params.homeKey }, 
       { cameraKey: this.props.navigation.state.params.cameraKey }))
+  }
+
+  makeEdit() {
+    this.setState({
+      editable: true
+    })
   }
 
   translateText() {
@@ -85,6 +92,8 @@ export default class ImageResult extends Component {
                    onChangeText={ text => this.setState({ text }) }
                    blurOnSubmit={ true }
                    multiline={ true }
+                   editable={ this.state.editable }
+                   onFocus={ () => this.makeEdit }
                    value={ this.state.text } />
 
         { this.state.picker ?

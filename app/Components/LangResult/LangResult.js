@@ -1,6 +1,7 @@
 import React from "react";
 import { AppRegistry, StyleSheet, View, Text, TextInput, Image, TouchableOpacity, Dimensions } from "react-native";
 import { NavigationActions } from 'react-navigation';
+import Share from 'react-native-share'
 // import { Icon } from 'react-native-vector-icons'
 
 const LangResult = (props) => {
@@ -15,6 +16,12 @@ const LangResult = (props) => {
     key: props.navigation.state.params.homeKey
   })
 
+  const shareOptions = {
+    title: "Translated Doc",
+    message: props.navigation.state.params.translation,
+    subject: "Sharing Translated Document"
+  };
+
   return (
     <View style={ styles.resultContainer }>
 
@@ -25,22 +32,28 @@ const LangResult = (props) => {
                    editable={ false }
                    value={ props.navigation.state.params.translation } />
 
-      <View style={styles.bottomBar}> 
+      <View style={ styles.bottomBar }> 
 
         <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={ () => goBack() }>
-          <Image source={require("../../../assets/left-arrow.png")}
+          <Image source={ require("../../../assets/left-arrow.png") }
                  style={ styles.icon } />
           <Text style={ styles.btnTxt }>Go Back</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={ [styles.cameraBtn, styles.Btn] } onPress={ () => dispatch(backToCamera) }>
-          <Image source={require("../../../assets/photo-camera.png")}
+          <Image source={ require("../../../assets/photo-camera-2.png") }
                  style={ styles.smallIcon } />
           <Text style={ styles.btnTxt }>Camera</Text>
         </TouchableOpacity>
 
+        <TouchableOpacity style={ [styles.cameraBtn, styles.Btn] } onPress={ () => Share.open(shareOptions).catch(err => console.log(err)) }>
+          <Image source={ require("../../../assets/share.png") }
+                 style={ styles.icon } />
+          <Text style={ styles.btnTxt }>Share</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity style={ [styles.homeBtn, styles.Btn] } onPress={ () => dispatch(backToHome) }>
-          <Image source={require("../../../assets/home.png")}
+          <Image source={ require("../../../assets/home.png") }
                  style={ styles.smallIcon } />          
           <Text style={ styles.btnTxt }>Home</Text>
         </TouchableOpacity>
