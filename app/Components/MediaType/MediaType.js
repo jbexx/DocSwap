@@ -20,6 +20,8 @@ export default class MediaType extends Component {
   render() {
 
     const { navigate, dispatch, state } = this.props.navigation;
+    console.log('state inn mt', state);
+    
 
     return (
       <ImageBackground
@@ -29,7 +31,7 @@ export default class MediaType extends Component {
       
         <TouchableOpacity
           style={ styles.button }
-          onPress={ () => navigate("TakePhoto", { cameraKey: state.key }) }
+          onPress={ () => navigate("TakePhoto") }
           activeOpacity={ 0.5 }
         >
           <Image

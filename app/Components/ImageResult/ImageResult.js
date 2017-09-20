@@ -33,7 +33,7 @@ export default class ImageResult extends Component {
 
   componentDidMount() {
     this.setState({
-      text: this.props.navigation.state.params
+      text: this.props.navigation.state.params.path
     })
   }
 
@@ -44,7 +44,7 @@ export default class ImageResult extends Component {
   }
 
   cleanText(res) {
-    this.props.navigation.navigate('LangResult', res.data.translations[0].translatedText)
+    this.props.navigation.navigate('LangResult', Object.assign({}, { translation: res.data.translations[0].translatedText }, { homeKey: this.props.navigation.state.params.homeKey }, { cameraKey: this.props.navigation.state.params.cameraKey }))
   }
 
   translateText() {

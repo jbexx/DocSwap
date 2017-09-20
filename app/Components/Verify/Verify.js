@@ -26,8 +26,9 @@ export default class TakePhoto extends Component {
   }
 
   cleanData(data) {
-    const cleanedData = JSON.parse(data._bodyText).responses[0].fullTextAnnotation.text
-    this.props.navigation.navigate('ImageResult', cleanedData)
+    const cleanedData = JSON.parse(data._bodyText).responses[0].fullTextAnnotation.text;
+
+    this.props.navigation.navigate('ImageResult', Object.assign({}, { path: cleanedData }, { homeKey: this.props.navigation.state.params.homeKey }, { cameraKey: this.props.navigation.state.key }))
   }
 
   usePhoto(imgPath) {
@@ -65,7 +66,7 @@ export default class TakePhoto extends Component {
     //from cameraRoll assets-library://asset/asset.JPG?id=729F50DA-9627-42A9-802D-69B22C9EECD2&ext=JPG
 
 
-    const imgPath = this.props.navigation.state.params
+    const imgPath = this.props.navigation.state.params.path
 
     RNFS.readFile(imgPath, 'base64')
       .then(imgString => this.usePhoto(imgString))
@@ -73,14 +74,15 @@ export default class TakePhoto extends Component {
   }
 
   render() {
-    const { state, navigate, goBack } = this.props.navigation;
+
+    const { state, goBack } = this.props.navigation;
 
     return (
       <View>
         <ImageBackground
           style={ styles.img }
           source={{
-            uri: state.params
+            uri: state.params.path
           }}>
 
           <View style={ styles.topBar } />
