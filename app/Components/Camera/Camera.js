@@ -3,10 +3,12 @@ import {
   AppRegistry,
   View,
   Text,
+  Image,
   TouchableOpacity,
   StyleSheet,
   Dimensions
 } from "react-native";
+import { Icon } from 'react-native-elements'
 import Camera from "react-native-camera";
 
 export default class TakePhoto extends Component {
@@ -55,7 +57,9 @@ export default class TakePhoto extends Component {
           <View style={ styles.bottomBar }> 
 
             <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={() => this.props.navigation.goBack()}>
-              <Text style={ styles.btnTxt }>Go Back</Text>
+              <Image source={require("../../../assets/home.png")}
+                  style={ styles.icon } />
+              <Text style={ styles.btnTxt }>Home</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={ this.takePicture.bind(this) }>
@@ -92,15 +96,17 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     borderRadius: 25,
-    borderWidth: 1,
+    borderWidth: 1.3,
     borderColor: "#d6d7da",
     marginTop: 15
   },
 
   Btn: {
     flexDirection: 'column',
-    justifyContent: 'center', 
-    height: 80
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    height: 60,
+    marginTop: 10
   },
 
   goBackBtn: {
@@ -115,6 +121,11 @@ const styles = StyleSheet.create({
     marginRight: 15,
     width: 55
   },
+
+  icon: {
+    height: 30,
+    width: 30
+  }
 });
 
 AppRegistry.registerComponent("TakePhoto", () => TakePhoto);

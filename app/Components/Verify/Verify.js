@@ -3,6 +3,7 @@ import {
   AppRegistry,
   View,
   Text,
+  Image,
   ImageBackground,
   TouchableOpacity,
   StyleSheet,
@@ -28,7 +29,7 @@ export default class TakePhoto extends Component {
   cleanData(data) {
     const cleanedData = JSON.parse(data._bodyText).responses[0].fullTextAnnotation.text;
 
-    this.props.navigation.navigate('ImageResult', Object.assign({}, { path: cleanedData }, { homeKey: this.props.navigation.state.params.homeKey }, { cameraKey: this.props.navigation.state.key }))
+    this.props.navigation.navigate('ImageResult', Object.assign({}, { path: cleanedData }, { homeKey: this.props.navigation.state.params.homeKey },{ cameraKey: this.props.navigation.state.key }))
   }
 
   usePhoto(imgPath) {
@@ -90,10 +91,14 @@ export default class TakePhoto extends Component {
           <View style={ styles.bottomBar }> 
 
             <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={ () => goBack() }>
+              <Image source={require("../../../assets/left-arrow.png")}
+                  style={ styles.icon } />
               <Text style={ styles.btnTxt }>Go Back</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={ [styles.submitBtn, styles.Btn] } onPress={ this.convertImg.bind(this) }>
+              <Image source={require("../../../assets/send.png")}
+                    style={ styles.icon } />
               <Text style={ styles.btnTxt }>Use Photo</Text>
             </TouchableOpacity>
             
@@ -129,8 +134,10 @@ const styles = StyleSheet.create({
   
   Btn: {
     flexDirection: 'column',
-    justifyContent: 'center', 
-    height: 80
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    height: 60,
+    marginTop: 10
   },
 
   goBackBtn: {
@@ -144,6 +151,11 @@ const styles = StyleSheet.create({
   submitBtn: {
     marginRight: 15
   },
+
+  icon: {
+    height: 25,
+    width: 25
+  }
 });
 
 AppRegistry.registerComponent("TakePhoto", () => TakePhoto);
