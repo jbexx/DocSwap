@@ -3,28 +3,20 @@ import { AppRegistry, StyleSheet, View, Text, TouchableOpacity, Dimensions } fro
 import { NavigationActions } from 'react-navigation';
 
 const LangResult = (props) => {
-  console.log('props', props)
 
   const { goBack, dispatch } = props.navigation;
 
- // const resetAction = NavigationActions.reset({
-    //   index: 1,
-    //   actions: [
-    //     NavigationActions.navigate({ routeName: 'Capture'})
-    //   ]
-    // })
-    // this.props.naviga
   const backToCamera = NavigationActions.back({
-    key: 'Camera'
+    key: props.navigation.state.params.cameraKey
   })
 
   const backToHome = NavigationActions.back({
-    key: 'MediaType'
+    key: props.navigation.state.params.homeKey
   })
 
   return (
     <View style={ styles.resultContainer }>
-      <Text>{ props.navigation.state.params }</Text>
+      <Text>{ props.navigation.state.params.translation }</Text>
 
       <View style={styles.bottomBar}> 
 
