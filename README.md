@@ -16,6 +16,7 @@ Optical Character Recognition Integrating Language Translation
 
 ### Use
 - Clone this repo
+
    in your terminal run these commands
    
     ```
