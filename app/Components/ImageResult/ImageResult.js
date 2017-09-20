@@ -5,7 +5,9 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   Picker,
+  Keyboard,
   StyleSheet,
   Dimensions
 } from "react-native";
@@ -42,9 +44,7 @@ export default class ImageResult extends Component {
   }
 
   cleanText(res) {
-    console.log('res ', res)
-    // this.props.navigation.navigate({ routeName: 'FinalTabs' }, { text: res.data.translations[0].translatedText })
-    this.props.navigation.navigate('FinalTabs', res.data.translations[0].translatedText)
+    this.props.navigation.navigate('LangResult', res.data.translations[0].translatedText)
   }
 
   translateText() {
@@ -71,13 +71,15 @@ export default class ImageResult extends Component {
 
     const mappedLanguages = languages.map(lang => <Picker.Item key={ lang.code }
                                                                label={ lang.language }
-                                                               value={ lang.code } />)
+                                                               value={ lang.code }
+                                                               style={ styles.pickerItem } />)
 
     return (
       <View style={ styles.container }>
 
         <TextInput style={ styles.resTxt }
                    onChangeText={ text => this.setState({ text }) }
+                   blurOnSubmit={ true }
                    multiline={ true }
                    value={ this.state.text } />
 
@@ -109,7 +111,7 @@ export default class ImageResult extends Component {
           </TouchableOpacity>
 
         </View>
-       
+      
       </View>
     );
   }
@@ -125,7 +127,7 @@ const styles = StyleSheet.create({
   },
 
   resTxt: {
-    backgroundColor: '#ededed',
+    fontSize: 20,
     height: Dimensions.get("window").height - 80,
     width: Dimensions.get("window").width,
     padding: 10
@@ -134,10 +136,14 @@ const styles = StyleSheet.create({
   pickerContainer: {
     position: 'absolute'
   },
-
+  
   picker: {
+    backgroundColor: '#e9e9ef',
     marginTop: Dimensions.get('window').height / 3,
     width: Dimensions.get("window").width
+  },
+
+  pickerItem: {
   },
 
   translateBtn: {
