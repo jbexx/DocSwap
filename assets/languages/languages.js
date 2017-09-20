@@ -1,6 +1,6 @@
 export default [
     {language: "Afrikaans",	code: "af"},
-    {language: "Albanian", code: "aq"},
+    {language: "Albanian", code: "sq"},
     {language: "Amharic", code:	"am"},
     {language: "Arabic", code: "ar"},
     {language: "Armenian", code: "hy"},

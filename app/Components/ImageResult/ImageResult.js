@@ -4,6 +4,7 @@ import {
   View,
   Text,
   TextInput,
+  Image,
   TouchableOpacity,
   TouchableWithoutFeedback,
   Picker,
@@ -44,7 +45,10 @@ export default class ImageResult extends Component {
   }
 
   cleanText(res) {
-    this.props.navigation.navigate('LangResult', Object.assign({}, { translation: res.data.translations[0].translatedText }, { homeKey: this.props.navigation.state.params.homeKey }, { cameraKey: this.props.navigation.state.params.cameraKey }))
+    console.log('res', res)
+    this.props.navigation.navigate('LangResult', Object.assign({}, { translation: res.data.translations[0].translatedText }, 
+      { homeKey: this.props.navigation.state.params.homeKey }, 
+      { cameraKey: this.props.navigation.state.params.cameraKey }))
   }
 
   translateText() {
@@ -103,10 +107,14 @@ export default class ImageResult extends Component {
         <View style={styles.bottomBar}> 
 
           <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={ () => goBack() }>
+            <Image source={require("../../../assets/left-arrow.png")}
+                  style={ styles.icon } />
             <Text style={ styles.btnTxt }>Go Back</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={ [styles.submitBtn, styles.Btn] } onPress={ this.togglePicker.bind(this) }>
+            <Image source={require("../../../assets/refresh.png")}
+                        style={ styles.icon } />
             <Text style={ styles.btnTxt }>Translate Text</Text>
           </TouchableOpacity>
 
@@ -169,8 +177,10 @@ const styles = StyleSheet.create({
 
   Btn: {
     flexDirection: 'column',
-    justifyContent: 'center',
-    height: 80
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    height: 60,
+    marginTop: 10
   },
 
   goBackBtn: {
@@ -184,6 +194,11 @@ const styles = StyleSheet.create({
   submitBtn: {
     marginRight: 15
   },
+
+  icon: {
+    height: 25,
+    width: 25
+  }
 });
 
 AppRegistry.registerComponent("ImageResult", () => ImageResult);
