@@ -24,12 +24,17 @@ export default class DocSwap extends Component {
 
 const DocApp = StackNavigator({
   Home: { screen: App },
-  MediaType: { screen: MediaType },
+  Capture: { screen: MediaType },
   TakePhoto: { screen: TakePhoto },
   Upload: { screen: DocUp },
   Verify: { screen: Verify },
   ImageResult: { screen: ImageResult },
-  LangResult: { screen: LangResult }
+  LangResult: { screen: LangResult,
+    navigationOptions: {
+      title: "Language Result",
+      header: null
+    }
+  }
 });
 
 AppRegistry.registerComponent("DocSwap", () => DocApp);

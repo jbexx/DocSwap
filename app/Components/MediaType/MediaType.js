@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavigationActions, NavigationState, navigator, NavigationUriActionPayload } from 'react-navigation'
+import { NavigationActions } from 'react-navigation'
 import {
   AppRegistry,
   Image,
@@ -13,21 +13,13 @@ import {
 export default class MediaType extends Component {
   static navigationOptions = {
     title: "Capture",
-    header: null
+    header: null,
+    gesturesEnabled: false
   };
   
-  resetNav() {
-    const resetAction = NavigationActions.reset({
-      index: 0,
-      actions: [
-        NavigationActions.navigate({ routeName: 'MediaType'})
-      ]
-    })
-    dispatch = this.props.navigation.dispatch(resetAction)
-  }
-  
   render() {
-    const { navigate, dispatch } = this.props.navigation;
+
+    const { navigate, dispatch, state } = this.props.navigation;
 
     return (
       <ImageBackground
@@ -37,7 +29,7 @@ export default class MediaType extends Component {
       
         <TouchableOpacity
           style={ styles.button }
-          onPress={ () => navigate("TakePhoto") }
+          onPress={ () => navigate("TakePhoto", { cameraKey: state.key }) }
           activeOpacity={ 0.5 }
         >
           <Image

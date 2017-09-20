@@ -30,7 +30,11 @@ export default class TakePhoto extends Component {
       .catch(err => console.error(err));
   }
 
+  // to pass through key of camera screen to try an navigate back there from last screen
+  // this.props.navigation.navigate("Verify", { data: data.path, ...this.props.navigation.params });
+
   render() {
+    
     const { Aspect, CaptureTarget, Orientation } = Camera.constants;
 
     return (

@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import { AppRegistry, View } from "react-native";
+import { AppRegistry } from "react-native";
 
 import Welcome from "../Welcome/Welcome";
-import MediaType from "../MediaType/MediaType";
-import DocUp from "../DocUp/DocUp";
-import Camera from "../Camera/Camera";
 
 export default class App extends Component {
   static navigationOptions = {
@@ -14,8 +11,8 @@ export default class App extends Component {
 
   componentDidMount() {
     setTimeout(() => {
-      this.props.navigation.navigate("MediaType");
-    }, 2500);
+      this.props.navigation.navigate("Capture");
+    }, 2000);
   }
 
   render() {
