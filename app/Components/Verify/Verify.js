@@ -29,7 +29,9 @@ export default class TakePhoto extends Component {
   cleanData(data) {
     const cleanedData = JSON.parse(data._bodyText).responses[0].fullTextAnnotation.text;
 
-    this.props.navigation.navigate('ImageResult', Object.assign({}, { path: cleanedData }, { homeKey: this.props.navigation.state.params.homeKey },{ cameraKey: this.props.navigation.state.key }))
+    this.props.navigation.navigate('ImageResult', Object.assign({}, { path: cleanedData },
+      { homeKey: this.props.navigation.state.params.homeKey },
+      { cameraKey: this.props.navigation.state.key }))
   }
 
   usePhoto(imgPath) {
@@ -75,7 +77,8 @@ export default class TakePhoto extends Component {
   }
 
   render() {
-
+    console.log('photo ', this.props);
+    
     const { state, goBack } = this.props.navigation;
 
     return (

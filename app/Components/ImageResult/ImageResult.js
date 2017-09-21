@@ -34,9 +34,14 @@ export default class ImageResult extends Component {
   };
 
   componentDidMount() {
-    this.setState({
-      text: this.props.navigation.state.params.path
-    })
+    console.log('in ir ', this.props)
+    if (this.props.navigation.state.params.from === 'text') {
+      this.setState({ text: "Type your message here..." })
+    } else {
+      this.setState({
+        text: this.props.navigation.state.params.path
+      })
+    }
   }
 
   togglePicker() {
@@ -92,7 +97,6 @@ export default class ImageResult extends Component {
                    onChangeText={ text => this.setState({ text }) }
                    blurOnSubmit={ true }
                    multiline={ true }
-                   editable={ this.state.editable }
                    onFocus={ () => this.makeEdit }
                    value={ this.state.text } />
 

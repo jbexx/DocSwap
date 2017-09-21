@@ -20,8 +20,6 @@ export default class MediaType extends Component {
   render() {
 
     const { navigate, dispatch, state } = this.props.navigation;
-    console.log('state inn mt', state);
-    
 
     return (
       <ImageBackground
@@ -61,6 +59,23 @@ export default class MediaType extends Component {
             source={ require("../../../assets/doc-text.png") }
           />
         </TouchableOpacity>
+
+        <Image source={ require("../../../assets/bar.png") } style={ styles.bar } />
+
+        <TouchableOpacity
+          style={ styles.button }
+          onPress={ () => navigate("ImageResult", { from: "text" }) }
+          activeOpacity={ 0.5 }
+        >
+          <Image
+            source={ require("../../../assets/message-2.png") }
+            style={ [styles.doc, styles.img] }
+          />
+          <Image
+            style={ styles.msgText }
+            source={ require("../../../assets/message-text.png") }
+          />
+        </TouchableOpacity>
       </ImageBackground>
     );
   }
@@ -78,17 +93,14 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-around",
-    height: 200
+    backgroundColor: 'rgba(0,0,0,0)',
+    height: 150,
+    width: 150
   },
 
   img: {
-    height: 80,
-    width: 80
-  },
-
-  picText: {
-    height: 35,
-    width: 157
+    height: 60,
+    width: 60
   },
 
   bar: {
@@ -96,9 +108,19 @@ const styles = StyleSheet.create({
     width: "80%"
   },
 
+  picText: {
+    height: 28,
+    width: 127
+  },
+
   docText: {
-    height: 40,
-    width: 165
+    height: 35,
+    width: 145
+  },
+
+  msgText: {
+    height: 35,
+    width: 91
   }
 });
 

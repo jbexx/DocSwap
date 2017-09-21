@@ -13,7 +13,7 @@ export default class Photos extends Component {
   }
 
   chosenPicture() {
-    this.props.navigate('Verify', this.props.image)
+    this.props.navigate('Verify', { path: this.props.image })
   }
 
   render() {
