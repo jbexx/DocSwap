@@ -41,19 +41,19 @@ const LangResult = (props) => {
         </TouchableOpacity>
 
         <TouchableOpacity style={ [styles.cameraBtn, styles.Btn] } onPress={ () => dispatch(backToCamera) }>
-          <Image source={ require("../../../assets/photo-camera-2.png") }
+          <Image source={ require("../../../assets/small-camera.png") }
                  style={ styles.smallIcon } />
           <Text style={ styles.btnTxt }>Camera</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={ [styles.cameraBtn, styles.Btn] } onPress={ () => Share.open(shareOptions).catch(err => console.log(err)) }>
-          <Image source={ require("../../../assets/share.png") }
-                 style={ styles.icon } />
+          <Image source={ require("../../../assets/message.png") }
+                 style={ styles.smallIcon } />
           <Text style={ styles.btnTxt }>Share</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={ [styles.homeBtn, styles.Btn] } onPress={ () => dispatch(backToHome) }>
-          <Image source={ require("../../../assets/home.png") }
+          <Image source={ require("../../../assets/home2.png") }
                  style={ styles.smallIcon } />          
           <Text style={ styles.btnTxt }>Home</Text>
         </TouchableOpacity>
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   smallIcon: {
     height: 30,
     width: 30
-  }
+  },
 });
 
 AppRegistry.registerComponent("LangResult", () => LangResult);

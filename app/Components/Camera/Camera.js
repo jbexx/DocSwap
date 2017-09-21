@@ -57,7 +57,7 @@ export default class TakePhoto extends Component {
           <View style={ styles.bottomBar }> 
 
             <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={() => this.props.navigation.goBack()}>
-              <Image source={require("../../../assets/home.png")}
+              <Image source={require("../../../assets/home2.png")}
                   style={ styles.icon } />
               <Text style={ styles.btnTxt }>Home</Text>
             </TouchableOpacity>
