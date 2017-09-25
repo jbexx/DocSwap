@@ -149,9 +149,10 @@ const styles = StyleSheet.create({
 
   resTxt: {
     fontSize: 20,
-    height: Dimensions.get("window").height - 80,
+    height: Dimensions.get("window").height - 95,
     width: Dimensions.get("window").width,
-    padding: 10
+    padding: 10,
+    marginTop: 15
   },
 
   pickerContainer: {
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 80,
+    height: 95,
     width: '100%'    
   },
 
