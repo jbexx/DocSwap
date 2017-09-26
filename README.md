@@ -50,4 +50,5 @@ Optical Character Recognition Integrating Language Translation
 
 ### Screenshots
 
+![docswapss](https://user-images.githubusercontent.com/23174736/30870397-fcf02c50-a2a0-11e7-9158-4eda58e0fe3e.jpg)
 
