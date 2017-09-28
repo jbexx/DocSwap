@@ -2,9 +2,10 @@ import React from "react";
 import { AppRegistry, StyleSheet, View, Text, TextInput, Image, TouchableOpacity, Dimensions } from "react-native";
 import { NavigationActions } from 'react-navigation';
 import Share from 'react-native-share'
-// import { Icon } from 'react-native-vector-icons'
 
 const LangResult = (props) => {
+
+  
 
   const { goBack, dispatch } = props.navigation;
 
