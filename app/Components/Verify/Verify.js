@@ -6,6 +6,7 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
+  ActivityIndicator,
   StyleSheet,
   StatusBar,
   Dimensions
@@ -17,6 +18,13 @@ import Key from '../../../assets/key/key';
 import RNFS from 'react-native-fs'
 
 export default class TakePhoto extends Component {
+  constructor() {
+    super()
+    this.state = {
+      loading: false
+    }
+  }
+
   static navigationOptions = {
     title: "Verify",
     header: null
@@ -26,15 +34,32 @@ export default class TakePhoto extends Component {
     StatusBar.setHidden(true);
   }
 
+  createNavKey() {
+    if (!this.props.navigation.state.homekey) {
+     return { homeKey: this.props.navigation.state.key }
+    }
+
+    return { homeKey: this.props.navigation.state.params.homekey }
+  }
+
   cleanData(data) {
+
+    this.setState({
+      loading: false
+    })
+
     const cleanedData = JSON.parse(data._bodyText).responses[0].fullTextAnnotation.text;
 
     this.props.navigation.navigate('ImageResult', Object.assign({}, { path: cleanedData },
-      { homeKey: this.props.navigation.state.params.homeKey },
+      this.createNavKey(),
       { cameraKey: this.props.navigation.state.key }))
   }
 
   usePhoto(imgPath) {
+
+    this.setState({
+      loading: true
+    })
 
     fetch(`https://vision.googleapis.com/v1/images:annotate?key=${Key}`, {
       method: 'POST',
@@ -77,9 +102,21 @@ export default class TakePhoto extends Component {
   }
 
   render() {
-    console.log('photo ', this.props);
     
     const { state, goBack } = this.props.navigation;
+
+    if (this.state.loading) {
+      return (
+        <View style={ styles.container }>
+          <ActivityIndicator
+          style={ styles.wheel }
+          animating={ this.state.animating }
+          size="large"
+          color='#448ccb'
+          />
+        </View>
+      )
+    }
 
     return (
       <View>
@@ -114,6 +151,18 @@ export default class TakePhoto extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#1E1E1E',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width
+  },
+
+  wheel: {
+    height: 80,
+  },
+
   img: {
     flexDirection: "column",
     justifyContent: "space-between",

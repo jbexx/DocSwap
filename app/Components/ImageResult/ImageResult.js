@@ -6,7 +6,7 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
-  TouchableWithoutFeedback,
+  ActivityIndicator,
   Picker,
   Keyboard,
   StyleSheet,
@@ -23,6 +23,7 @@ export default class ImageResult extends Component {
     this.state = {
       picker: false,
       editable: false,
+      loading: false,
       selectedLanguage: 'af',
       text: ''
     }
@@ -34,7 +35,6 @@ export default class ImageResult extends Component {
   };
 
   componentDidMount() {
-    console.log('in ir ', this.props)
     if (this.props.navigation.state.params.from === 'text') {
       this.setState({ text: "Type your message here..." })
     } else {
@@ -44,6 +44,16 @@ export default class ImageResult extends Component {
     }
   }
 
+
+  // this function works the first time through the app but when navigating to many different screens and then coming back to this way of setting the key for the home route it doesn't work.  look into getting the routes from the 'last state', which has all the previous routes and their keys
+
+  setKey() {
+    const keyArray = [ ...this.props.navigation.state.key ]
+    const lackingArray = keyArray.slice(0, keyArray.length - 1)
+    lackingArray.push('2')
+    return lackingArray.join('')
+  }
+
   togglePicker() {
     this.setState({
       picker: !this.state.picker
@@ -51,9 +61,12 @@ export default class ImageResult extends Component {
   }
 
   cleanText(res) {
-    console.log('res', res)
+    this.setState({
+      loading: false
+    })
+
     this.props.navigation.navigate('LangResult', Object.assign({}, { translation: res.data.translations[0].translatedText }, 
-      { homeKey: this.props.navigation.state.params.homeKey }, 
+      { homeKey: this.setKey() }, 
       { cameraKey: this.props.navigation.state.params.cameraKey }))
   }
 
@@ -64,6 +77,10 @@ export default class ImageResult extends Component {
   }
 
   translateText() {
+    this.setState({
+      loading: true
+    })
+
     fetch(`https://translation.googleapis.com/language/translate/v2?key=${key}`, {
       method: 'POST',
       headers: {
@@ -82,8 +99,21 @@ export default class ImageResult extends Component {
 
 
   render() {
-    console.log('state in ir ', this.state)
+    
     const { goBack } = this.props.navigation;
+
+    if (this.state.loading) {
+      return (
+        <View style={ styles.loadContainer }>
+          <ActivityIndicator
+          style={ styles.wheel }
+          animating={ this.state.animating }
+          size="large"
+          color='#448ccb'
+          />
+        </View>
+      )
+    }
 
     const mappedLanguages = languages.map(lang => <Picker.Item key={ lang.code }
                                                                label={ lang.language }
@@ -102,13 +132,12 @@ export default class ImageResult extends Component {
 
         { this.state.picker ?
         <View style={ styles.pickerContainer }>
-            <Picker 
-                    selectedValue={ this.state.selectedLanguage }
+            <Picker selectedValue={ this.state.selectedLanguage }
                     onValueChange={ itemValue => this.setState({ selectedLanguage: itemValue })}
                     prompt='Choose a Language'
                     style={ styles.picker }
                     itemStyle={ styles.langStyle }>
-                    { mappedLanguages }
+              { mappedLanguages }
             </Picker>
             <TouchableOpacity style={ styles.translateBtn } onPress={ () => this.translateText() }>
               <Text style={ styles.translateTxt }>Go</Text>
@@ -139,6 +168,18 @@ export default class ImageResult extends Component {
 }
 
 const styles = StyleSheet.create({
+  loadContainer: {
+    backgroundColor: '#1E1E1E',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width
+  },
+
+  wheel: {
+    height: 80,
+  },
+
   container: {
     flexDirection: 'column',
     alignItems: 'center',
