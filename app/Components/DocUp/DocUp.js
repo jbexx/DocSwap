@@ -3,11 +3,11 @@ import {
   AppRegistry,
   View,
   FlatList,
-  ActivityIndicator,
   Dimensions,
   CameraRoll,
   StyleSheet
 } from "react-native";
+import Spinner from 'react-native-spinkit';
 
 import PhotoList from "../PhotoList/PhotoList";
 
@@ -27,7 +27,7 @@ export default class DocUp extends Component {
   }
 
   getPhotos() {
-    CameraRoll.getPhotos({ first: 100 }).then(res => {
+    CameraRoll.getPhotos({ first: 1000 }).then(res => {
       photoArray = res.edges;
       this.setState({
         photoArray
@@ -39,16 +39,17 @@ export default class DocUp extends Component {
 
     if (!this.state.photoArray) {
       return (
-              <View style={ styles.container }>
-                <ActivityIndicator
-                style={ styles.wheel }
-                animating={ this.state.animating }
-                size="large"
-                color='#448ccb'
-                />
-              </View>
+        <View style={ styles.container }>
+          <Spinner style={ styles.loader }
+                    isVisible={ true }
+                    size={ 100 }
+                    type={ 'Wave' }
+                    color={ '#3DD8CE' } />
+        </View>
       )
     }
+
+
 
     return (
       <FlatList
