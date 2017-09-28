@@ -15,7 +15,8 @@ import { NavigationActions } from "react-navigation";
 
 import Camera from "react-native-camera";
 import Key from '../../../assets/key/key';
-import RNFS from 'react-native-fs'
+import RNFS from 'react-native-fs';
+import Spinner from 'react-native-spinkit';
 
 export default class TakePhoto extends Component {
   constructor() {
@@ -105,19 +106,6 @@ export default class TakePhoto extends Component {
     
     const { state, goBack } = this.props.navigation;
 
-    if (this.state.loading) {
-      return (
-        <View style={ styles.container }>
-          <ActivityIndicator
-          style={ styles.wheel }
-          animating={ this.state.animating }
-          size="large"
-          color='#448ccb'
-          />
-        </View>
-      )
-    }
-
     return (
       <View>
         <ImageBackground
@@ -127,6 +115,11 @@ export default class TakePhoto extends Component {
           }}>
 
           <View style={ styles.topBar } />
+
+          <Spinner isVisible={ this.state.loading }
+                   size={ 100 }
+                   type={ 'Wave' }
+                   color={ '#3DD8CE' } />
 
           <View style={ styles.bottomBar }> 
 
@@ -159,12 +152,9 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width
   },
 
-  wheel: {
-    height: 80,
-  },
-
   img: {
     flexDirection: "column",
+    alignItems: 'center',
     justifyContent: "space-between",
     height: Dimensions.get("window").height,
     width: Dimensions.get("window").width

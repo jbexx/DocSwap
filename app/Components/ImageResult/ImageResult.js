@@ -16,6 +16,7 @@ import { NavigationActions } from "react-navigation";
 
 import key from '../../../assets/key/key';
 import languages from '../../../assets/languages/languages';
+import Spinner from 'react-native-spinkit';
 
 export default class ImageResult extends Component {
   constructor() {
@@ -102,19 +103,6 @@ export default class ImageResult extends Component {
     
     const { goBack } = this.props.navigation;
 
-    if (this.state.loading) {
-      return (
-        <View style={ styles.loadContainer }>
-          <ActivityIndicator
-          style={ styles.wheel }
-          animating={ this.state.animating }
-          size="large"
-          color='#448ccb'
-          />
-        </View>
-      )
-    }
-
     const mappedLanguages = languages.map(lang => <Picker.Item key={ lang.code }
                                                                label={ lang.language }
                                                                value={ lang.code }
@@ -123,25 +111,34 @@ export default class ImageResult extends Component {
     return (
       <View style={ styles.container }>
 
-        <TextInput style={ styles.resTxt }
-                   onChangeText={ text => this.setState({ text }) }
-                   blurOnSubmit={ true }
-                   multiline={ true }
-                   onFocus={ () => this.makeEdit }
-                   value={ this.state.text } />
+        <View style={ styles.textContainer }>
+          <TextInput style={ styles.resTxt }
+                    onChangeText={ text => this.setState({ text }) }
+                    blurOnSubmit={ true }
+                    multiline={ true }
+                    onFocus={ () => this.makeEdit }
+                    value={ this.state.text } />
+
+          <Spinner style={ styles.loader }
+                   isVisible={ this.state.loading }
+                   size={ 100 }
+                   type={ 'Wave' }
+                   color={ '#3DD8CE' } />
+        </View>
 
         { this.state.picker ?
         <View style={ styles.pickerContainer }>
-            <Picker selectedValue={ this.state.selectedLanguage }
-                    onValueChange={ itemValue => this.setState({ selectedLanguage: itemValue })}
-                    prompt='Choose a Language'
-                    style={ styles.picker }
-                    itemStyle={ styles.langStyle }>
-              { mappedLanguages }
-            </Picker>
-            <TouchableOpacity style={ styles.translateBtn } onPress={ () => this.translateText() }>
-              <Text style={ styles.translateTxt }>Go</Text>
-            </TouchableOpacity>
+
+          <Picker selectedValue={ this.state.selectedLanguage }
+                  onValueChange={ itemValue => this.setState({ selectedLanguage: itemValue })}
+                  prompt='Choose a Language'
+                  style={ styles.picker }
+                  itemStyle={ styles.langStyle }>
+            { mappedLanguages }
+          </Picker>
+          <TouchableOpacity style={ styles.translateBtn } onPress={ () => this.translateText() }>
+            <Text style={ styles.translateTxt }>Go</Text>
+          </TouchableOpacity>
         </View>
             : null
         }
@@ -168,17 +165,6 @@ export default class ImageResult extends Component {
 }
 
 const styles = StyleSheet.create({
-  loadContainer: {
-    backgroundColor: '#1E1E1E',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width
-  },
-
-  wheel: {
-    height: 80,
-  },
 
   container: {
     flexDirection: 'column',
@@ -188,12 +174,24 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width
   },
 
+  textContainer: {
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  
   resTxt: {
     fontSize: 20,
-    height: Dimensions.get("window").height - 95,
-    width: Dimensions.get("window").width,
     padding: 10,
-    marginTop: 15
+    marginTop: 15,
+    height: Dimensions.get("window").height - 95,    
+    width: Dimensions.get("window").width
+  },
+
+  laodContainer: {
+  },
+  
+  loader: {
+    position: 'absolute',
   },
 
   pickerContainer: {
