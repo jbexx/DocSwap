@@ -105,6 +105,8 @@ export default class TakePhoto extends Component {
   render() {
     
     const { state, goBack } = this.props.navigation;
+    console.log('state in verify ', state);
+    
 
     return (
       <View>
