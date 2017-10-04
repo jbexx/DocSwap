@@ -27,7 +27,7 @@ export default class DocUp extends Component {
   }
 
   getPhotos() {
-    CameraRoll.getPhotos({ first: 1000 }).then(res => {
+    CameraRoll.getPhotos({ first: 100 }).then(res => {
       photoArray = res.edges;
       this.setState({
         photoArray
