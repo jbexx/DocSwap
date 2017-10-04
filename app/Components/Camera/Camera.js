@@ -5,8 +5,6 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  PanResponder,
-  Animated,
   StyleSheet,
   Dimensions
 } from "react-native";
@@ -17,34 +15,13 @@ export default class TakePhoto extends Component {
   constructor() {
     super();
     this.state = {
-      // photo: null,
-      pan: new Animated.ValueXY(),
+      photo: null
     };
   }
   static navigationOptions = {
     title: "Camera",
     header: null
   };
-
-  componentWillMount() {
-    this._panResponder = PanResponder.create({
-      onMoveShouldSetResponderCapture: () => true,
-      onMoveShouldSetPanResponderCapture: () => true,
-
-      onPanResponderGrant: (e, gestureState) => {
-        this.state.pan.setOffset({ x: this.state.pan.x._value, y: this.state.pan.y._value })
-        this.state.pan.setValue({x: 0, y: 0})
-      },
-
-      onPanResponderMove: Animated.event([
-        null, {dx: this.state.pan.x, dy: this.state.pan.y}
-      ]),
-
-      onPanResponderRelease: (e, {vx, vy}) => {
-        this.state.pan.flattenOffset();
-      }
-    });
-  }
 
   takePicture() {
     this.camera
@@ -56,16 +33,10 @@ export default class TakePhoto extends Component {
     }
 
   render() {
-
     const { Aspect, CaptureTarget, Orientation } = Camera.constants;
-    const { pan } = this.state;
-    let [translateX, translateY] = [pan.x, pan.y]
-    let boxStyle = { transform: [{translateX}, {translateY}] }
 
     return (
       <View>
-
-        {/* wrap camera in a <View> that is a box with a width and height on it and then the camera will only be the size of that box?  then make it so the box's width and height can be changed by the user when dragging a corner. */}
         <Camera
           ref={cam => {
             this.camera = cam;
@@ -75,28 +46,23 @@ export default class TakePhoto extends Component {
           captureTarget={ CaptureTarget.disk }
           Orientation={ Orientation.auto }
           onFocusChanged={ (e) => {} }
-          onZoomChanged={ (e) => {} }>
+          onZoomChanged={ (e) => {} }
+        >
+          <View style={ styles.bottomBar }> 
 
-          <Animated.View style={styles.boxStyle} {...this._panResponder.panHandlers}>
-            <View style={styles.boudingBox} />
-          </Animated.View>
+            <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={() => this.props.navigation.goBack()}>
+              <Image source={require("../../../assets/home2.png")}
+                  style={ styles.icon } />
+              <Text style={ styles.btnTxt }>Home</Text>
+            </TouchableOpacity>
 
-              <View style={ styles.bottomBar }> 
+            <TouchableOpacity onPress={ this.takePicture.bind(this) }>
+              <View style={ styles.camBtn } />
+            </TouchableOpacity>
 
-                <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={() => this.props.navigation.goBack()}>
-                  <Image source={require("../../../assets/home2.png")}
-                      style={ styles.icon } />
-                  <Text style={ styles.btnTxt }>Home</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={ this.takePicture.bind(this) }>
-                  <View style={ styles.camBtn } />
-                </TouchableOpacity>
-
-                <TouchableOpacity style={ [styles.submitBtn, styles.Btn] } />
-                
-              </View>
-
+            <TouchableOpacity style={ [styles.submitBtn, styles.Btn] } />
+            
+          </View>
         </Camera>
       </View>
     );
@@ -104,19 +70,11 @@ export default class TakePhoto extends Component {
 }
 
 const styles = StyleSheet.create({
-
   cam: {
     justifyContent: "flex-end",
     alignItems: "center",
     height: Dimensions.get("window").height,
     width: Dimensions.get("window").width
-  },
-
-  boundingBox: {
-    borderColor: 'green',
-    borderWidth: 1,
-    height: 200,
-    width: 50
   },
 
   bottomBar: {

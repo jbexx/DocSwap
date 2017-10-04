@@ -4,17 +4,16 @@ import { NavigationActions } from 'react-navigation';
 import Share from 'react-native-share'
 
 const LangResult = (props) => {
-
-  
-
   const { goBack, dispatch } = props.navigation;
+  
+  const { cameraKey, homeKey } = props.navigation.state.params;
 
   const backToCamera = NavigationActions.back({
-    key: props.navigation.state.params.cameraKey
+    key: cameraKey
   })
 
   const backToHome = NavigationActions.back({
-    key: props.navigation.state.params.homeKey
+    key: homeKey
   })
 
   const shareOptions = {
@@ -41,11 +40,14 @@ const LangResult = (props) => {
           <Text style={ styles.btnTxt }>Go Back</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={ [styles.cameraBtn, styles.Btn] } onPress={ () => dispatch(backToCamera) }>
+        {
+          cameraKey ? <TouchableOpacity style={ [styles.cameraBtn, styles.Btn] } onPress={ () => dispatch(backToCamera) }>
           <Image source={ require("../../../assets/small-camera.png") }
                  style={ styles.smallIcon } />
           <Text style={ styles.btnTxt }>Camera</Text>
-        </TouchableOpacity>
+          </TouchableOpacity>
+          : null
+        }
 
         <TouchableOpacity style={ [styles.cameraBtn, styles.Btn] } onPress={ () => Share.open(shareOptions).catch(err => console.log(err)) }>
           <Image source={ require("../../../assets/message.png") }
@@ -53,11 +55,14 @@ const LangResult = (props) => {
           <Text style={ styles.btnTxt }>Share</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={ [styles.homeBtn, styles.Btn] } onPress={ () => dispatch(backToHome) }>
+        {
+          cameraKey ? <TouchableOpacity style={ [styles.homeBtn, styles.Btn] } onPress={ () => dispatch(backToHome) }>
           <Image source={ require("../../../assets/home2.png") }
                  style={ styles.smallIcon } />          
           <Text style={ styles.btnTxt }>Home</Text>
-        </TouchableOpacity>
+          </TouchableOpacity>
+          : null
+        }
 
       </View>
     </View>
