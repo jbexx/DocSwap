@@ -48,12 +48,12 @@ export default class ImageResult extends Component {
 
   // this function works the first time through the app but when navigating to many different screens and then coming back to this way of setting the key for the home route it doesn't work.  look into getting the routes from the 'last state', which has all the previous routes and their keys
 
-  setKey() {
-    const keyArray = [ ...this.props.navigation.state.key ]
-    const lackingArray = keyArray.slice(0, keyArray.length - 1)
-    lackingArray.push('2')
-    return lackingArray.join('')
-  }
+  // setKey() {
+  //   const keyArray = [ ...this.props.navigation.state.key ]
+  //   const lackingArray = keyArray.slice(0, keyArray.length - 1)
+  //   lackingArray.push('2')
+  //   return lackingArray.join('')
+  // }
 
   togglePicker() {
     this.setState({
@@ -61,15 +61,23 @@ export default class ImageResult extends Component {
     })
   }
 
+  createNavKey() {
+    if (!this.props.navigation.state.params.homeKey) {
+     return { homeKey: this.props.navigation.state.key }
+    }
+
+    return { homeKey: this.props.navigation.state.params.homeKey }
+  }
+
   cleanText(res) {
     this.setState({
       loading: false
     })
 
-    this.props.navigation.navigate('LangResult', Object.assign({}, { translation: res.data.translations[0].translatedText }, 
-      { homeKey: this.setKey() }, 
-      { cameraKey: this.props.navigation.state.params.cameraKey }))
-  }
+    this.props.navigation.navigate('LangResult', Object.assign({}, { translation: res.data.translations[0].translatedText },
+      this.createNavKey(),
+      { cameraKey: this.props.navigation.state.params.cameraKey }
+    ))}
 
   makeEdit() {
     this.setState({

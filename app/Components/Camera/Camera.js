@@ -46,8 +46,7 @@ export default class TakePhoto extends Component {
           captureTarget={ CaptureTarget.disk }
           Orientation={ Orientation.auto }
           onFocusChanged={ (e) => {} }
-          onZoomChanged={ (e) => {} }
-        >
+          onZoomChanged={ (e) => {} }>
           <View style={ styles.bottomBar }> 
 
             <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={() => this.props.navigation.goBack()}>
