@@ -55,14 +55,12 @@ const LangResult = (props) => {
           <Text style={ styles.btnTxt }>Share</Text>
         </TouchableOpacity>
 
-        {
-          cameraKey ? <TouchableOpacity style={ [styles.homeBtn, styles.Btn] } onPress={ () => dispatch(backToHome) }>
-          <Image source={ require("../../../assets/home2.png") }
-                 style={ styles.smallIcon } />          
-          <Text style={ styles.btnTxt }>Home</Text>
-          </TouchableOpacity>
-          : null
-        }
+        <TouchableOpacity style={ [styles.homeBtn, styles.Btn] } onPress={ () => dispatch(backToHome) }>
+        <Image source={ require("../../../assets/home2.png") }
+                style={ styles.smallIcon } />          
+        <Text style={ styles.btnTxt }>Home</Text>
+        </TouchableOpacity>
+         
 
       </View>
     </View>

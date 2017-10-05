@@ -35,14 +35,6 @@ export default class TakePhoto extends Component {
     StatusBar.setHidden(true);
   }
 
-  createNavKey() {
-    if (!this.props.navigation.state.homekey) {
-     return { homeKey: this.props.navigation.state.key }
-    }
-
-    return { homeKey: this.props.navigation.state.params.homekey }
-  }
-
   cleanData(data) {
 
     this.setState({
@@ -51,9 +43,11 @@ export default class TakePhoto extends Component {
 
     const cleanedData = JSON.parse(data._bodyText).responses[0].fullTextAnnotation.text;
 
-    this.props.navigation.navigate('ImageResult', Object.assign({}, { path: cleanedData },
-      this.createNavKey(),
-      { cameraKey: this.props.navigation.state.key }))
+    this.props.navigation.navigate('ImageResult', {
+      path: cleanedData,
+      homeKey: this.props.navigation.state.params.homeKey,
+      cameraKey: this.props.navigation.state.key
+    })
   }
 
   usePhoto(imgPath) {
@@ -104,6 +98,8 @@ export default class TakePhoto extends Component {
 
   render() {
     
+    console.log('key in verify', this.props.navigation.state.params.homeKey)
+
     const { state, goBack } = this.props.navigation;
 
     return (
