@@ -208,6 +208,7 @@ const styles = StyleSheet.create({
   
   picker: {
     backgroundColor: '#e9e9ef',
+    shadowColor: '#000',
     marginTop: Dimensions.get('window').height / 3,
     width: Dimensions.get("window").width
   },
@@ -223,6 +224,10 @@ const styles = StyleSheet.create({
   translateTxt: {
     borderWidth: 2,
     borderColor: '#6dcff6',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -0.5 },
+    shadowOpacity: 0.8,
+    shadowRadius: 5,
     fontSize: 30,
     padding: 25
   },
