@@ -18,7 +18,7 @@ Optical Character Recognition Integrating Language Translation
    
    
 ### Use
-###### You will need to get a [google cloud api key](https://cloud.google.com/docs/authentication/api-keys), as mine is not available on this repo.  Once you have gotten an api key, create a key.js file in your root and export that key from the file.
+###### You will need to get a [google cloud api key](https://cloud.google.com/docs/authentication/api-keys), as mine is not available on this repo.  Once you have gotten an api key, create a `key.js` file in your root and export that key from the file.
 
 - Clone this repo
 
