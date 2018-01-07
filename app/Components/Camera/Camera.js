@@ -8,7 +8,6 @@ import {
   StyleSheet,
   Dimensions
 } from "react-native";
-import { Icon } from 'react-native-elements'
 import Camera from "react-native-camera";
 
 export default class TakePhoto extends Component {
@@ -91,6 +90,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     borderWidth: 1.3,
     borderColor: "#d6d7da",
+    marginLeft:12,
     marginTop: 15
   },
 

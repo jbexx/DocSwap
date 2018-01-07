@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { AppRegistry, Text, View } from "react-native";
-import { StackNavigator } from "react-navigation";
+import { StackNavigator, TabNavigator } from "react-navigation";
 
 import App from "./app/Components/App/App";
 import MediaType from "./app/Components/MediaType/MediaType";
@@ -24,12 +24,17 @@ export default class DocSwap extends Component {
 
 const DocApp = StackNavigator({
   Home: { screen: App },
-  MediaType: { screen: MediaType },
+  Capture: { screen: MediaType },
   TakePhoto: { screen: TakePhoto },
   Upload: { screen: DocUp },
   Verify: { screen: Verify },
   ImageResult: { screen: ImageResult },
-  LangResult: { screen: LangResult }
+  LangResult: { screen: LangResult,
+    navigationOptions: {
+      title: "Language Result",
+      header: null
+    }
+  }
 });
 
 AppRegistry.registerComponent("DocSwap", () => DocApp);

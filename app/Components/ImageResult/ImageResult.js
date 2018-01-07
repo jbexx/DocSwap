@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import {
   AppRegistry,
   View,
+  ScrollView,
   Text,
   TextInput,
   Image,
   TouchableOpacity,
   ActivityIndicator,
   Picker,
-  Keyboard,
   StyleSheet,
   Dimensions
 } from "react-native";
@@ -44,16 +44,6 @@ export default class ImageResult extends Component {
       })
     }
   }
-
-
-  // this function works the first time through the app but when navigating to many different screens and then coming back to this way of setting the key for the home route it doesn't work.  look into getting the routes from the 'last state', which has all the previous routes and their keys
-
-  // setKey() {
-  //   const keyArray = [ ...this.props.navigation.state.key ]
-  //   const lackingArray = keyArray.slice(0, keyArray.length - 1)
-  //   lackingArray.push('2')
-  //   return lackingArray.join('')
-  // }
 
   togglePicker() {
     this.setState({
@@ -110,6 +100,7 @@ export default class ImageResult extends Component {
   render() {
     
     const { goBack } = this.props.navigation;
+    const { text } = this.state;
 
     const mappedLanguages = languages.map(lang => <Picker.Item key={ lang.code }
                                                                label={ lang.language }
@@ -119,20 +110,21 @@ export default class ImageResult extends Component {
     return (
       <View style={ styles.container }>
 
-        <View style={ styles.textContainer }>
+        <ScrollView style={ styles.textContainer }
+                     keyboardDismissMode={'on-drag'}>
           <TextInput style={ styles.resTxt }
-                    onChangeText={ text => this.setState({ text }) }
-                    blurOnSubmit={ true }
-                    multiline={ true }
-                    onFocus={ () => this.makeEdit }
-                    value={ this.state.text } />
+                     onChangeText={ text => this.setState({ text }) }
+                     blurOnSubmit={ true }
+                     multiline={ true }
+                     onFocus={ () => this.makeEdit }
+                     value={ this.state.text } />
 
           <Spinner style={ styles.loader }
                    isVisible={ this.state.loading }
                    size={ 100 }
                    type={ 'Wave' }
                    color={ '#3DD8CE' } />
-        </View>
+        </ScrollView>
 
         { this.state.picker ?
         <View style={ styles.pickerContainer }>
@@ -183,8 +175,7 @@ const styles = StyleSheet.create({
   },
 
   textContainer: {
-    flexDirection: 'column',
-    alignItems: 'center'
+    flexDirection: 'column'
   },
   
   resTxt: {
@@ -193,9 +184,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     height: Dimensions.get("window").height - 95,    
     width: Dimensions.get("window").width
-  },
-
-  laodContainer: {
   },
   
   loader: {
@@ -211,9 +199,6 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     marginTop: Dimensions.get('window').height / 3,
     width: Dimensions.get("window").width
-  },
-
-  pickerItem: {
   },
 
   translateBtn: {
