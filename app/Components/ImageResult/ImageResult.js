@@ -113,6 +113,7 @@ export default class ImageResult extends Component {
         <ScrollView style={ styles.textContainer }
                      keyboardDismissMode={'on-drag'}>
           <TextInput style={ styles.resTxt }
+                     clearTextOnFocus={true}
                      onChangeText={ text => this.setState({ text }) }
                      blurOnSubmit={ true }
                      multiline={ true }
