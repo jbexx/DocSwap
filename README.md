@@ -14,10 +14,12 @@ Optical Character Recognition Integrating Language Translation
 
    The user can then select a language they wish to translate the document into.  Another post is made to the Google Cloud Translation API where it is translated and returned to be displayed to the user in the language they chose.
    
-   I have also incorporated a text messaging functionality.  Because the share functionality allows the user to send a text message with the translated text, I wanted to build out a way to write a text message, translate it, and then be able to send that text all within one application.
+   I have also incorporated text messaging functionality.  Because the share functionality allows the user to send a text message with the translated text, I wanted to build out a way to write a text message, translate it, and then be able to send that text all within one application.
    
    
 ### Use
+###### You will need to get a [google cloud api key](https://cloud.google.com/docs/authentication/api-keys), as mine is not available on this repo.  Once you have gotten an api key, create a `key.js` file in your root and export that key from the file.
+
 - Clone this repo
 
    in your terminal run these commands
