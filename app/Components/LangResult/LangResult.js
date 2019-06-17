@@ -144,6 +144,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent("LangResult", () => LangResult);
-
 export default LangResult;

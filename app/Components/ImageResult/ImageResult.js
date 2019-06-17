@@ -266,5 +266,3 @@ const styles = StyleSheet.create({
     width: 25
   }
 });
-
-AppRegistry.registerComponent("ImageResult", () => ImageResult);
