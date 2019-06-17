@@ -26,14 +26,19 @@ export default class TakePhoto extends Component {
     this.props.navigation.goBack()
   }
 
-  takePicture = () => {
-    this.camera
-      .capture()
-      .then(data => { 
-        this.props.navigation.navigate('Verify', Object.assign({}, { homeKey: this.props.navigation.state.key }, data))
-      })
-      .catch(err => console.error(err));
+  takePicture = async () => {
+    const { navigate, state } = this.props.navigation;
+    
+    try {
+      const cameraData = await this.camera.capture();
+
+      navigate('Verify', Object.assign({}, { homeKey: state.key }, cameraData))
     }
+
+    catch(err) {
+      console.error({ err });
+    }
+  }
 
   render() {
     const { Aspect, CaptureTarget, Orientation } = Camera.constants;
