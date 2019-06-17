@@ -4,71 +4,63 @@ import {
   AppRegistry,
   Image,
   ImageBackground,
-  TextInput,
   TouchableOpacity,
   Dimensions,
   StyleSheet
 } from "react-native";
 
-export default class MediaType extends Component {
-  static navigationOptions = {
-    title: "Capture",
-    header: null,
-    gesturesEnabled: false
-  };
-  
-  render() {
+const MediaType = (props) => {
 
-    const { navigate, dispatch, state } = this.props.navigation;
+  const { navigate } = props.navigation;
 
-    return (
-      <ImageBackground
-        source={ require("../../../assets/blue-background.png") }
-        style={ styles.background }>
+  return (
+    <ImageBackground
+      source={ require("../../../assets/blue-background.png") }
+      style={ styles.background }>
 
-        <TouchableOpacity
-          style={ styles.button }
-          onPress={ () => navigate("TakePhoto") }
-          activeOpacity={ 0.5 }>
-          <Image
-            source={ require("../../../assets/photo-camera.png") }
-            style={ [styles.cam, styles.img] }/>
-          <Image
-            style={ styles.picText }
-            source={ require("../../../assets/picture-text.png") }/>
-        </TouchableOpacity>
+      <TouchableOpacity
+        style={ styles.button }
+        onPress={ () => navigate("TakePhoto") }
+        activeOpacity={ 0.5 }>
+        <Image
+          source={ require("../../../assets/photo-camera.png") }
+          style={ [styles.cam, styles.img] }/>
+        <Image
+          style={ styles.picText }
+          source={ require("../../../assets/picture-text.png") }/>
+      </TouchableOpacity>
 
-        <Image source={ require("../../../assets/bar.png") } style={ styles.bar } />
+      <Image source={ require("../../../assets/bar.png") } style={ styles.bar } />
 
-        <TouchableOpacity
-          style={ styles.button }
-          onPress={ () => navigate("Upload") }
-          activeOpacity={ 0.5 }>
-          <Image
-            source={ require("../../../assets/upload.png") }
-            style={ [styles.doc, styles.img] }/>
-          <Image
-            style={ styles.docText }
-            source={ require("../../../assets/doc-text.png") }/>
-        </TouchableOpacity>
+      <TouchableOpacity
+        style={ styles.button }
+        onPress={ () => navigate("Upload") }
+        activeOpacity={ 0.5 }>
+        <Image
+          source={ require("../../../assets/upload.png") }
+          style={ [styles.doc, styles.img] }/>
+        <Image
+          style={ styles.docText }
+          source={ require("../../../assets/doc-text.png") }/>
+      </TouchableOpacity>
 
-        <Image source={ require("../../../assets/bar.png") } style={ styles.bar } />
+      <Image source={ require("../../../assets/bar.png") } style={ styles.bar } />
 
-        <TouchableOpacity
-          style={ styles.button }
-          onPress={ () => navigate("ImageResult", { from: "text" }) }
-          activeOpacity={ 0.5 }>
-          <Image
-            source={ require("../../../assets/message-2.png") }
-            style={ [styles.doc, styles.img] }/>
-          <Image
-            style={ styles.msgText }
-            source={ require("../../../assets/message-text.png") }/>
-        </TouchableOpacity>
-      </ImageBackground>
-    );
-  }
+      <TouchableOpacity
+        style={ styles.button }
+        onPress={ () => navigate("ImageResult", { from: "text" }) }
+        activeOpacity={ 0.5 }>
+        <Image
+          source={ require("../../../assets/message-2.png") }
+          style={ [styles.doc, styles.img] }/>
+        <Image
+          style={ styles.msgText }
+          source={ require("../../../assets/message-text.png") }/>
+      </TouchableOpacity>
+    </ImageBackground>
+  );
 }
+
 
 const styles = StyleSheet.create({
   background: {
@@ -113,4 +105,4 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent("MediaType", () => MediaType);
+export default MediaType;

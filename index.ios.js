@@ -24,7 +24,13 @@ export default class DocSwap extends Component {
 
 const DocApp = StackNavigator({
   Home: { screen: App },
-  Capture: { screen: MediaType },
+  Capture: { screen: MediaType, 
+    navigationOptions: {
+      title: "Capture",
+      header: null,
+      gesturesEnabled: false
+    }
+  },
   TakePhoto: { screen: TakePhoto },
   Upload: { screen: DocUp },
   Verify: { screen: Verify },
