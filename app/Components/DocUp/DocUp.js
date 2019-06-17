@@ -8,7 +8,6 @@ import {
   StyleSheet
 } from "react-native";
 import Spinner from 'react-native-spinkit';
-
 import PhotoList from "../PhotoList/PhotoList";
 
 export default class DocUp extends Component {
@@ -37,7 +36,10 @@ export default class DocUp extends Component {
 
   render() {
 
-    if (!this.state.photoArray) {
+    const { photoArray } = this.state;
+    const { navigate, goBack } = this.props.navigation;
+
+    if (!photoArray) {
       return (
         <View style={ styles.container }>
           <Spinner style={ styles.loader }
@@ -54,11 +56,11 @@ export default class DocUp extends Component {
     return (
       <FlatList
         numColumns={3}
-        data={ this.state.photoArray }
+        data={ photoArray }
         renderItem={ ({ item }) => <PhotoList 
                                       image={ item.node.image.uri }
-                                      navigate={ this.props.navigation.navigate }
-                                      goBack={ this.props.navigation.goBack } /> }
+                                      navigate={ navigate }
+                                      goBack={ goBack } /> }
         keyExtractor={ item => item.node.timestamp }
       />
     );
