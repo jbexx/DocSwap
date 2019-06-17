@@ -22,7 +22,11 @@ export default class TakePhoto extends Component {
     header: null
   };
 
-  takePicture() {
+  navBack = () => {
+    this.props.navigation.goBack()
+  }
+
+  takePicture = () => {
     this.camera
       .capture()
       .then(data => { 
@@ -44,17 +48,17 @@ export default class TakePhoto extends Component {
           aspect={ Aspect.fill }
           captureTarget={ CaptureTarget.disk }
           Orientation={ Orientation.auto }
-          onFocusChanged={ (e) => {} }
-          onZoomChanged={ (e) => {} }>
+          onFocusChanged={ e => {} }
+          onZoomChanged={ e => {} }>
           <View style={ styles.bottomBar }> 
 
-            <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={() => this.props.navigation.goBack()}>
+            <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={ this.navBack }>
               <Image source={require("../../../assets/home2.png")}
                   style={ styles.icon } />
               <Text style={ styles.btnTxt }>Home</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={ this.takePicture.bind(this) }>
+            <TouchableOpacity onPress={ this.takePicture }>
               <View style={ styles.camBtn } />
             </TouchableOpacity>
 
