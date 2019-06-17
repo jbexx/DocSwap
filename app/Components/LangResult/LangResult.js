@@ -3,7 +3,6 @@ import { AppRegistry,
          StyleSheet,
          View,
          Text,
-         TextInput,
          Image,
          TouchableOpacity,
          Dimensions } from "react-native";
@@ -11,9 +10,7 @@ import { NavigationActions } from 'react-navigation';
 import Share from 'react-native-share'
 
 const LangResult = (props) => {
-  const { goBack, dispatch } = props.navigation;
-  
-  const { cameraKey, homeKey } = props.navigation.state.params;
+  const { cameraKey, homeKey, translation } = props.navigation.state.params;
 
   const backToCamera = NavigationActions.back({
     key: cameraKey
@@ -23,32 +20,40 @@ const LangResult = (props) => {
     key: homeKey
   })
 
-  const shareOptions = {
-    title: "Translated Doc",
-    message: props.navigation.state.params.translation,
-    subject: "Sharing Translated Document"
-  };
+  const dispatchBack = screen => () => {
+    console.log('screen', screen)
+    props.navigation.dispatch(screen)
+  }
+
+  const navBack = () => {
+    props.navigation.goBack()
+  }
+
+  const shareText = () => {
+    const shareOptions = {
+      title: "Translated Doc",
+      message: props.navigation.state.params.translation,
+      subject: "Sharing Translated Document"
+    };
+
+    Share.open(shareOptions).catch(err => console.log(err))
+  }
 
   return (
     <View style={ styles.resultContainer }>
 
-      <TextInput style={ styles.resTxt }
-                   onChangeText={ text => this.setState({ text }) }
-                   blurOnSubmit={ true }
-                   multiline={ true }
-                   editable={ false }
-                   value={ props.navigation.state.params.translation } />
+      <Text style={ styles.resTxt }>{ translation }</Text>
 
       <View style={ styles.bottomBar }> 
 
-        <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={ () => goBack() }>
+        <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={ navBack }>
           <Image source={ require("../../../assets/left-arrow.png") }
                  style={ styles.icon } />
           <Text style={ styles.btnTxt }>Go Back</Text>
         </TouchableOpacity>
 
         {
-          cameraKey ? <TouchableOpacity style={ [styles.cameraBtn, styles.Btn] } onPress={ () => dispatch(backToCamera) }>
+          cameraKey ? <TouchableOpacity style={ [styles.cameraBtn, styles.Btn] } onPress={ dispatchBack(backToCamera) }>
           <Image source={ require("../../../assets/small-camera.png") }
                  style={ styles.smallIcon } />
           <Text style={ styles.btnTxt }>Camera</Text>
@@ -56,13 +61,13 @@ const LangResult = (props) => {
           : null
         }
 
-        <TouchableOpacity style={ [styles.cameraBtn, styles.Btn] } onPress={ () => Share.open(shareOptions).catch(err => console.log(err)) }>
+        <TouchableOpacity style={ [styles.cameraBtn, styles.Btn] } onPress={ shareText }>
           <Image source={ require("../../../assets/message.png") }
                  style={ styles.smallIcon } />
           <Text style={ styles.btnTxt }>Share</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={ [styles.homeBtn, styles.Btn] } onPress={ () => dispatch(backToHome) }>
+        <TouchableOpacity style={ [styles.homeBtn, styles.Btn] } onPress={ dispatchBack(backToHome) }>
         <Image source={ require("../../../assets/home2.png") }
                 style={ styles.smallIcon } />          
         <Text style={ styles.btnTxt }>Home</Text>
