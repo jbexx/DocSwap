@@ -7,7 +7,6 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
-  ActivityIndicator,
   Picker,
   StyleSheet,
   Dimensions
@@ -36,27 +35,30 @@ export default class ImageResult extends Component {
   };
 
   componentDidMount() {
-    if (this.props.navigation.state.params.from === 'text') {
+    const { from, path } = this.props.navigation.state.params;
+
+    if (from === 'text') {
       this.setState({ text: "Type your message here..." })
     } else {
       this.setState({
-        text: this.props.navigation.state.params.path
+        text: path
       })
     }
   }
 
-  togglePicker() {
-    this.setState({
-      picker: !this.state.picker
+  togglePicker = () => {
+    this.setState((previousState) => {
+      return { picker: !previousState.picker }
     })
   }
 
   createNavKey() {
-    if (!this.props.navigation.state.params.homeKey) {
-     return { homeKey: this.props.navigation.state.key }
+    const { key, params } = this.props.navigation.state;
+    if (!params.homeKey) {
+     return { homeKey: key }
     }
 
-    return { homeKey: this.props.navigation.state.params.homeKey }
+    return { homeKey: params.homeKey }
   }
 
   cleanText(res) {
@@ -67,15 +69,29 @@ export default class ImageResult extends Component {
     this.props.navigation.navigate('LangResult', Object.assign({}, { translation: res.data.translations[0].translatedText },
       this.createNavKey(),
       { cameraKey: this.props.navigation.state.params.cameraKey }
-    ))}
+      )
+    )
+  }
 
-  makeEdit() {
+  handleChangeText = text => {
+    this.setState({ text })
+  }
+
+  handlePickerChange = selectedLanguage => {
+    this.setState({ selectedLanguage })
+  }
+  
+  makeEdit = () => {
     this.setState({
       editable: true
     })
   }
+  
+  navBack = () => { 
+    this.props.navigation.goBack();
+  }
 
-  translateText() {
+  translateText = () => {
     this.setState({
       loading: true
     })
@@ -98,9 +114,7 @@ export default class ImageResult extends Component {
 
 
   render() {
-    
-    const { goBack } = this.props.navigation;
-    const { text } = this.state;
+    const { text, loading, picker, selectedLanguage } = this.state;
 
     const mappedLanguages = languages.map(lang => <Picker.Item key={ lang.code }
                                                                label={ lang.language }
@@ -114,30 +128,30 @@ export default class ImageResult extends Component {
                      keyboardDismissMode={'on-drag'}>
           <TextInput style={ styles.resTxt }
                      clearTextOnFocus={true}
-                     onChangeText={ text => this.setState({ text }) }
+                     onChangeText={ this.handleChangeText }
                      blurOnSubmit={ true }
                      multiline={ true }
-                     onFocus={ () => this.makeEdit }
-                     value={ this.state.text } />
+                     onFocus={ this.makeEdit }
+                     value={ text } />
 
           <Spinner style={ styles.loader }
-                   isVisible={ this.state.loading }
+                   isVisible={ loading }
                    size={ 100 }
                    type={ 'Wave' }
                    color={ '#3DD8CE' } />
         </ScrollView>
 
-        { this.state.picker ?
+        { picker ?
         <View style={ styles.pickerContainer }>
 
-          <Picker selectedValue={ this.state.selectedLanguage }
-                  onValueChange={ itemValue => this.setState({ selectedLanguage: itemValue })}
+          <Picker selectedValue={ selectedLanguage }
+                  onValueChange={ this.handlePickerChange }
                   prompt='Choose a Language'
                   style={ styles.picker }
                   itemStyle={ styles.langStyle }>
             { mappedLanguages }
           </Picker>
-          <TouchableOpacity style={ styles.translateBtn } onPress={ () => this.translateText() }>
+          <TouchableOpacity style={ styles.translateBtn } onPress={ this.translateText }>
             <Text style={ styles.translateTxt }>Go</Text>
           </TouchableOpacity>
         </View>
@@ -146,13 +160,13 @@ export default class ImageResult extends Component {
 
         <View style={styles.bottomBar}> 
 
-          <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={ () => goBack() }>
+          <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={ this.navBack }>
             <Image source={require("../../../assets/left-arrow.png")}
                   style={ styles.icon } />
             <Text style={ styles.btnTxt }>Go Back</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={ [styles.submitBtn, styles.Btn] } onPress={ this.togglePicker.bind(this) }>
+          <TouchableOpacity style={ [styles.submitBtn, styles.Btn] } onPress={ this.togglePicker }>
             <Image source={require("../../../assets/refresh.png")}
                         style={ styles.icon } />
             <Text style={ styles.btnTxt }>Translate Text</Text>
