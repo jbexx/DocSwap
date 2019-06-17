@@ -22,14 +22,23 @@ export default class TakePhoto extends Component {
     header: null
   };
 
-  takePicture() {
-    this.camera
-      .capture()
-      .then(data => { 
-        this.props.navigation.navigate('Verify', Object.assign({}, { homeKey: this.props.navigation.state.key }, data))
-      })
-      .catch(err => console.error(err));
+  navBack = () => {
+    this.props.navigation.goBack()
+  }
+
+  takePicture = async () => {
+    const { navigate, state } = this.props.navigation;
+    
+    try {
+      const cameraData = await this.camera.capture();
+
+      navigate('Verify', Object.assign({}, { homeKey: state.key }, cameraData))
     }
+
+    catch(err) {
+      console.error({ err });
+    }
+  }
 
   render() {
     const { Aspect, CaptureTarget, Orientation } = Camera.constants;
@@ -44,17 +53,17 @@ export default class TakePhoto extends Component {
           aspect={ Aspect.fill }
           captureTarget={ CaptureTarget.disk }
           Orientation={ Orientation.auto }
-          onFocusChanged={ (e) => {} }
-          onZoomChanged={ (e) => {} }>
+          onFocusChanged={ e => {} }
+          onZoomChanged={ e => {} }>
           <View style={ styles.bottomBar }> 
 
-            <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={() => this.props.navigation.goBack()}>
+            <TouchableOpacity style={ [styles.goBackBtn, styles.Btn] } onPress={ this.navBack }>
               <Image source={require("../../../assets/home2.png")}
                   style={ styles.icon } />
               <Text style={ styles.btnTxt }>Home</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={ this.takePicture.bind(this) }>
+            <TouchableOpacity onPress={ this.takePicture }>
               <View style={ styles.camBtn } />
             </TouchableOpacity>
 

@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import {
   AppRegistry,
-  View,
-  FlatList,
-  Dimensions,
   CameraRoll,
-  StyleSheet
+  Dimensions,
+  FlatList,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import Spinner from 'react-native-spinkit';
-
-import PhotoList from "../PhotoList/PhotoList";
 
 export default class DocUp extends Component {
   constructor() {
@@ -26,18 +26,23 @@ export default class DocUp extends Component {
     this.getPhotos();
   }
 
-  getPhotos() {
-    CameraRoll.getPhotos({ first: 100 }).then(res => {
-      photoArray = res.edges;
-      this.setState({
-        photoArray
-      });
-    });
+  async getPhotos() {
+    try {
+      const res = await CameraRoll.getPhotos({ first: 100 });
+    
+      this.setState({ photoArray: res.edges })
+    }
+
+    catch(err) {
+      console.log({ err })
+    }
   }
 
   render() {
+    const { photoArray } = this.state;
+    const { navigate, goBack } = this.props.navigation;
 
-    if (!this.state.photoArray) {
+    if (!photoArray) {
       return (
         <View style={ styles.container }>
           <Spinner style={ styles.loader }
@@ -49,16 +54,14 @@ export default class DocUp extends Component {
       )
     }
 
-
-
     return (
       <FlatList
         numColumns={3}
-        data={ this.state.photoArray }
+        data={ photoArray }
         renderItem={ ({ item }) => <PhotoList 
                                       image={ item.node.image.uri }
-                                      navigate={ this.props.navigation.navigate }
-                                      goBack={ this.props.navigation.goBack } /> }
+                                      navigate={ navigate }
+                                      goBack={ goBack } /> }
         keyExtractor={ item => item.node.timestamp }
       />
     );
@@ -75,9 +78,35 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width
   },
 
+  thumbnail: {
+    borderWidth: 0.5,
+    borderColor: "#fff",
+    height: Dimensions.get('window').height / 5,
+    width: Dimensions.get('window').width / 3
+  },
+
   wheel: {
     height: 80,
   }
 });
 
 AppRegistry.registerComponent("DocUp", () => DocUp);
+
+
+const PhotoList = (props) => {
+
+  const chosenPicture = () => {
+    props.navigate('Verify', { path: props.image })
+  }
+
+  return (
+      <TouchableOpacity 
+        activeOpacity={ 0.7 }
+        onPress={ chosenPicture }>
+        <Image 
+          style={ styles.thumbnail }
+          source={{ uri: props.image }}
+          />
+      </TouchableOpacity>
+  );
+}

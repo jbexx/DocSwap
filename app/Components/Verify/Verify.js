@@ -50,36 +50,32 @@ export default class TakePhoto extends Component {
     })
   }
 
-  usePhoto(imgPath) {
+  async usePhoto(imgPath) {
 
     this.setState({
       loading: true
     })
 
-    fetch(`https://vision.googleapis.com/v1/images:annotate?key=${Key}`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-              "requests": [
-                {
-              "image": {
-                "content": imgPath
-              },
-              "features": [
-              {
-                "type": "DOCUMENT_TEXT_DETECTION"
-              }
-            ]
-          }
-        ]
+    try {
+      const fetchData = await fetch(`https://vision.googleapis.com/v1/images:annotate?key=${Key}`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+                "requests": [{
+                  "image": { "content": imgPath },
+                  "features": [ { "type": "DOCUMENT_TEXT_DETECTION" } ]
+                }]
+        })
       })
-    })
-    .then(data => this.cleanData(data))
-    .catch(err => console.log('error ', err))
+      this.cleanData(fetchData);
+    }
 
+    catch(err) {
+      console.log({ err })
+    }
   }
 
   convertImg() {
