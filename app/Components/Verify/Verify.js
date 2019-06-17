@@ -6,14 +6,11 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
-  ActivityIndicator,
   StyleSheet,
   StatusBar,
   Dimensions
 } from "react-native";
-import { NavigationActions } from "react-navigation";
 
-import Camera from "react-native-camera";
 import Key from '../../../assets/key/key';
 import RNFS from 'react-native-fs';
 import Spinner from 'react-native-spinkit';
@@ -78,18 +75,22 @@ export default class TakePhoto extends Component {
     }
   }
 
-  convertImg() {
+  async convertImg() {
 
     //from camera /Users/jbecks/Library/Developer/CoreSimulator/Devices/D9FE59D4-5706-4B0B-98D7-9D7B9519D18A/data/Containers/Data/Application/CCDC4308-F7FA-443A-B9B1-0DEBBDF93C01/Documents/24D6D353-B8FA-414F-ADEC-92B672FD056D.jpg
 
     //from cameraRoll assets-library://asset/asset.JPG?id=729F50DA-9627-42A9-802D-69B22C9EECD2&ext=JPG
 
-
     const imgPath = this.props.navigation.state.params.path
 
-    RNFS.readFile(imgPath, 'base64')
-      .then(imgString => this.usePhoto(imgString))
-      .catch(err => console.log(err))
+    try {
+      const readInfo = await RNFS.readFile(imgPath, 'base64');
+      this.usePhoto(readInfo);
+    }
+      
+    catch(err) {
+      console.log({ err })
+    } 
   }
 
   render() {
@@ -191,5 +192,3 @@ const styles = StyleSheet.create({
     width: 25
   }
 });
-
-AppRegistry.registerComponent("TakePhoto", () => TakePhoto);

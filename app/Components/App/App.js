@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { AppRegistry } from "react-native";
-
-import Welcome from "../Welcome/Welcome";
+import { StyleSheet, Image, Dimensions } from "react-native";
 
 export default class App extends Component {
   static navigationOptions = {
@@ -20,4 +18,19 @@ export default class App extends Component {
   }
 }
 
-AppRegistry.registerComponent("App", () => App);
+const styles = StyleSheet.create({
+  background: {
+    height: Dimensions.get("window").height,
+    width: Dimensions.get("window").width
+  }
+});
+
+const Welcome = () => {
+
+  return (
+    <Image
+      source={ require("../../../assets/WelcomePage.png") }
+      style={ styles.background }
+    />
+  );
+};

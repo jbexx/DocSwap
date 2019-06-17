@@ -28,7 +28,7 @@ export default class TakePhoto extends Component {
 
   takePicture = async () => {
     const { navigate, state } = this.props.navigation;
-    
+
     try {
       const cameraData = await this.camera.capture();
 
@@ -129,5 +129,3 @@ const styles = StyleSheet.create({
     width: 30
   }
 });
-
-AppRegistry.registerComponent("TakePhoto", () => TakePhoto);
