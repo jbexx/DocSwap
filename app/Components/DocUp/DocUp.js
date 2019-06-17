@@ -26,17 +26,19 @@ export default class DocUp extends Component {
     this.getPhotos();
   }
 
-  getPhotos() {
-    CameraRoll.getPhotos({ first: 100 }).then(res => {
-      photoArray = res.edges;
-      this.setState({
-        photoArray
-      });
-    });
+  async getPhotos() {
+    try {
+      const res = await CameraRoll.getPhotos({ first: 100 });
+    
+      this.setState({ photoArray: res.edges })
+    }
+
+    catch(err) {
+      console.log({ err })
+    }
   }
 
   render() {
-
     const { photoArray } = this.state;
     const { navigate, goBack } = this.props.navigation;
 
@@ -51,8 +53,6 @@ export default class DocUp extends Component {
         </View>
       )
     }
-
-
 
     return (
       <FlatList

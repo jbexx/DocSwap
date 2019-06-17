@@ -7,7 +7,6 @@ import MediaType from "./app/Components/MediaType/MediaType";
 import TakePhoto from "./app/Components/Camera/Camera";
 import DocUp from "./app/Components/DocUp/DocUp";
 import Verify from "./app/Components/Verify/Verify";
-import PhotoList from "./app/Components/PhotoList/PhotoList";
 import ImageResult from './app/Components/ImageResult/ImageResult';
 import LangResult from './app/Components/LangResult/LangResult';
 
