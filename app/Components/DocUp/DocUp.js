@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import {
   AppRegistry,
-  View,
-  FlatList,
-  Dimensions,
   CameraRoll,
-  StyleSheet
+  Dimensions,
+  FlatList,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import Spinner from 'react-native-spinkit';
-import PhotoList from "../PhotoList/PhotoList";
 
 export default class DocUp extends Component {
   constructor() {
@@ -77,9 +78,35 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width
   },
 
+  thumbnail: {
+    borderWidth: 0.5,
+    borderColor: "#fff",
+    height: Dimensions.get('window').height / 5,
+    width: Dimensions.get('window').width / 3
+  },
+
   wheel: {
     height: 80,
   }
 });
 
 AppRegistry.registerComponent("DocUp", () => DocUp);
+
+
+const PhotoList = (props) => {
+
+  const chosenPicture = () => {
+    props.navigate('Verify', { path: props.image })
+  }
+
+  return (
+      <TouchableOpacity 
+        activeOpacity={ 0.7 }
+        onPress={ chosenPicture }>
+        <Image 
+          style={ styles.thumbnail }
+          source={{ uri: props.image }}
+          />
+      </TouchableOpacity>
+  );
+}
